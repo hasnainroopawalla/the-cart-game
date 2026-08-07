@@ -113,7 +113,7 @@ export const CATALOG_ITEMS: CatalogItem[] = [
   },
   {
     id: "juice",
-    name: "Orange Juice",
+    name: "Orange Juice is very very good for",
     emoji: "🧃",
     size: "1 L",
     price: 95,

@@ -49,9 +49,11 @@ const ATTRIBUTE_ROWS: {
 export const ItemInfoButton = ({
   name,
   attributes,
+  className = "h-4 w-4",
 }: {
   name: string;
   attributes: ItemAttributes;
+  className?: string;
 }) => {
   const panelId = React.useId();
   const triggerRef = React.useRef<HTMLButtonElement>(null);
@@ -110,7 +112,7 @@ export const ItemInfoButton = ({
         type="button"
         popoverTarget={panelId}
         aria-label={`Details for ${name}`}
-        className={`inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full transition ${
+        className={`inline-flex shrink-0 items-center justify-center rounded-full transition ${className} ${
           open ? "text-neutral-700" : "text-neutral-300 hover:text-neutral-600"
         }`}
       >

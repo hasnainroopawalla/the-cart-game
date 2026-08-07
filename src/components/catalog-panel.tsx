@@ -24,7 +24,7 @@ const CategoryChip = ({
     type="button"
     className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-3.5 py-1.5 text-[13px] font-medium transition ${
       active
-        ? "border-emerald-200 bg-emerald-50 text-emerald-700"
+        ? "border-sky-200 bg-sky-50 text-sky-700"
         : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300 hover:text-neutral-900"
     }`}
   >
@@ -51,7 +51,7 @@ export const CatalogPanel = ({
             <input
               type="search"
               placeholder="Search for an item..."
-              className="w-full rounded-lg border border-neutral-200 py-1.5 pr-9 pl-3 text-[13.5px] text-neutral-800 outline-none placeholder:text-neutral-400 focus:border-emerald-300"
+              className="w-full rounded-lg border border-neutral-200 py-1.5 pr-9 pl-3 text-[13.5px] text-neutral-800 outline-none placeholder:text-neutral-400 focus:border-sky-400"
             />
             <SearchIcon className="pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-neutral-400" />
           </div>
@@ -72,7 +72,7 @@ export const CatalogPanel = ({
       </div>
 
       <div className="relative mt-3 px-5 pb-5">
-        <div className="grid grid-flow-col grid-rows-2 gap-3 overflow-x-auto pb-1">
+        <div className="flex gap-3 overflow-x-auto pb-1">
           {CATALOG_ITEMS.map((item) => (
             <CatalogCard
               key={item.id}
@@ -112,44 +112,54 @@ const CatalogCard = ({
   }, [item.id, onQuantityChange]);
 
   return (
-    <article className="flex w-56 shrink-0 items-center gap-3 rounded-xl border border-neutral-200 bg-white p-2.5">
-      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-neutral-50 text-2xl leading-none">
+    <article className="flex w-36 shrink-0 flex-col overflow-hidden rounded-xl border border-neutral-200 bg-white">
+      <div className="relative grid h-20 place-items-center bg-neutral-50 text-3xl leading-none">
         {item.emoji}
-      </span>
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-1">
-          <p
-            className="truncate text-[13.5px] font-semibold text-neutral-900"
-            title={item.name}
-          >
-            {item.name}
-          </p>
-          <ItemInfoButton name={item.name} attributes={item.attributes} />
-        </div>
-        <p className="truncate text-[12px] text-neutral-500">
-          <span className="font-semibold text-neutral-900 tabular-nums">
-            {formatPrice(item.price)}
-          </span>
-          {" · "}
+
+        {/* Both chips overlap the tile edge so they cost no extra row. */}
+        <span className="absolute -bottom-3.5 left-2 inline-flex h-7 items-center rounded-lg border border-neutral-200 bg-white px-2 text-[11.5px] font-medium text-neutral-600 shadow-xs">
           {item.size}
-        </p>
+        </span>
+
+        <div className="absolute right-2 -bottom-3.5">
+          {quantityInCart <= 0 ? (
+            <button
+              type="button"
+              aria-label={`Add ${item.name}`}
+              className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-sky-700 text-white shadow-sm transition hover:bg-sky-800"
+              onClick={onIncrement}
+            >
+              <PlusIcon className="h-3.5 w-3.5" />
+            </button>
+          ) : (
+            <QuantityStepper
+              quantity={quantityInCart}
+              onIncrement={onIncrement}
+              onDecrement={onDecrement}
+              tone="primary"
+              className="h-7 shadow-sm"
+            />
+          )}
+        </div>
       </div>
-      {quantityInCart <= 0 ? (
-        <button
-          type="button"
-          aria-label={`Add ${item.name}`}
-          className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600 transition hover:bg-emerald-100"
-          onClick={onIncrement}
-        >
-          <PlusIcon className="h-4 w-4" />
-        </button>
-      ) : (
-        <QuantityStepper
-          quantity={quantityInCart}
-          onIncrement={onIncrement}
-          onDecrement={onDecrement}
+
+      <div className="flex items-center justify-between gap-1 px-2.5 pt-5">
+        <span className="text-[14px] font-bold text-neutral-900 tabular-nums">
+          {formatPrice(item.price)}
+        </span>
+        <ItemInfoButton
+          name={item.name}
+          attributes={item.attributes}
+          className="h-6 w-6"
         />
-      )}
+      </div>
+
+      <p
+        className="line-clamp-2 px-2.5 pt-0.5 pb-2.5 text-[12.5px] leading-4 font-semibold text-neutral-800"
+        title={item.name}
+      >
+        {item.name}
+      </p>
     </article>
   );
 };
