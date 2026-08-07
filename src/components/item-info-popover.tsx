@@ -4,7 +4,7 @@ import {
   RELEVANT_ATTRIBUTES,
   type ItemAttributes,
 } from "../data";
-import { InfoIcon } from "./icons";
+import { Info } from "lucide-react";
 
 const PANEL_WIDTH = 224;
 const ESTIMATED_PANEL_HEIGHT = 180;
@@ -116,7 +116,7 @@ export const ItemInfoButton = ({
           open ? "text-neutral-700" : "text-neutral-300 hover:text-neutral-600"
         }`}
       >
-        <InfoIcon className="h-3.5 w-3.5" />
+        <Info className="h-3.5 w-3.5" />
       </button>
 
       <div

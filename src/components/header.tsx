@@ -1,4 +1,5 @@
-import { GithubIcon, HelpIcon } from "./icons";
+import { CircleHelp } from "lucide-react";
+import { GithubIcon } from "./icons";
 
 const ICON_BUTTON =
   "inline-flex h-11 w-11 items-center justify-center rounded-xl border border-neutral-200 bg-white text-neutral-500 shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition hover:border-neutral-300 hover:text-neutral-900";
@@ -31,14 +32,14 @@ export const Header = () => (
         <h1 className="text-[22px] leading-tight font-bold tracking-tight text-neutral-900">
           The Cart Game
         </h1>
-        <p className="text-[13px] text-neutral-500">
-          Satisfy all rules with your cart.
-        </p>
+        {/* <p className="text-[13px] text-neutral-500">
+          One cart. A lot of rules.
+        </p> */}
       </div>
     </div>
 
     <div className="flex items-center gap-2.5">
-      <HeaderButton icon={<HelpIcon className="h-4 w-4" />} label="Help" />
+      <HeaderButton icon={<CircleHelp className="h-4 w-4" />} label="Help" />
       {/* <HeaderButton
         icon={<RestartIcon className="h-4 w-4" />}
         label="Restart"

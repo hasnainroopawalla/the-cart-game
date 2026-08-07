@@ -2,9 +2,22 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Orbitron", ui-sans-serif, system-ui, sans-serif;
-  --font-prompt: "Rajdhani", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-canvas: #faf7f1;
+
+  /* Interactive accent. Deliberately not green, so it never reads as a rule verdict. */
+  --color-primary-50: #f0f9ff;
+  --color-primary-200: #bae6fd;
+  --color-primary-400: #38bdf8;
+  --color-primary-700: #0369a1;
+  --color-primary-800: #075985;
+
+  --color-satisfied-50: #ecfdf5;
+  --color-satisfied-500: #10b981;
+  --color-satisfied-600: #059669;
+
+  --color-failed-50: #fef2f2;
+  --color-failed-500: #ef4444;
 }
 
 body {

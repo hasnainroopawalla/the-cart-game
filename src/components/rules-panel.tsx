@@ -1,27 +1,22 @@
 import { GAME_STATE, RULES, type Rule, type RuleStatus } from "../data";
 import { Card, PanelHeader } from "./card";
-import {
-  CheckCircleIcon,
-  ClipboardIcon,
-  ClockIcon,
-  CrossCircleIcon,
-} from "./icons";
+import { CircleCheck, CircleX, Clock, NotepadText } from "lucide-react";
 
 const STATUS_ICON: Record<RuleStatus, React.ReactNode> = {
-  satisfied: <CheckCircleIcon className="h-5 w-5 text-emerald-500" />,
-  failed: <CrossCircleIcon className="h-5 w-5 text-red-500" />,
-  pending: <ClockIcon className="h-5 w-5 text-neutral-400" />,
+  satisfied: <CircleCheck className="text-satisfied-500 h-5 w-5" />,
+  failed: <CircleX className="text-failed-500 h-5 w-5" />,
+  pending: <Clock className="h-5 w-5 text-neutral-400" />,
 };
 
 const STATUS_TEXT: Record<RuleStatus, string> = {
-  satisfied: "text-emerald-600",
-  failed: "text-red-500",
+  satisfied: "text-satisfied-600",
+  failed: "text-failed-500",
   pending: "text-neutral-400",
 };
 
 const STATUS_ROW: Record<RuleStatus, string> = {
-  satisfied: "bg-emerald-50/60",
-  failed: "bg-red-50/50",
+  satisfied: "bg-satisfied-50/60",
+  failed: "bg-failed-50/50",
   pending: "",
 };
 
@@ -55,11 +50,11 @@ const RuleRow = ({ rule }: { rule: Rule }) => (
 export const RulesPanel = () => (
   <Card className="flex min-h-0 flex-col">
     <PanelHeader
-      icon={<ClipboardIcon className="h-5 w-5" />}
+      icon={<NotepadText className="h-5 w-5" />}
       title="Rules"
-      subtitle="All rules must be satisfied."
+      subtitle="Adjust your cart until all pass."
       right={
-        <span className="text-[15px] font-bold text-emerald-600 tabular-nums">
+        <span className="text-satisfied-600 text-[15px] font-bold tabular-nums">
           {GAME_STATE.rulesSatisfied}
           <span className="text-neutral-400"> / {GAME_STATE.rulesTotal}</span>
         </span>

@@ -4,12 +4,12 @@ import { Card, PanelHeader, formatPrice } from "./card";
 import { ItemInfoButton } from "./item-info-popover";
 import { QuantityStepper } from "./quantity-stepper";
 import {
-  ChevronDownIcon,
-  ChevronRightIcon,
-  LockIcon,
-  PlusIcon,
-  SearchIcon,
-} from "./icons";
+  ChevronDown,
+  ChevronRight,
+  Plus,
+  Search,
+  ShoppingBasket,
+} from "lucide-react";
 
 const CategoryChip = ({
   label,
@@ -24,7 +24,7 @@ const CategoryChip = ({
     type="button"
     className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-3.5 py-1.5 text-[13px] font-medium transition ${
       active
-        ? "border-sky-200 bg-sky-50 text-sky-700"
+        ? "border-primary-200 bg-primary-50 text-primary-700"
         : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300 hover:text-neutral-900"
     }`}
   >
@@ -43,17 +43,17 @@ export const CatalogPanel = ({
   return (
     <Card className="shrink-0">
       <PanelHeader
-        icon={<LockIcon className="h-5 w-5" />}
+        icon={<ShoppingBasket className="h-5 w-5" />}
         title="Item Catalog"
-        subtitle="Browse the shelves and stock your cart."
+        // subtitle="Tap + to add. Watch the rules."
         right={
           <div className="relative w-64">
             <input
               type="search"
               placeholder="Search for an item..."
-              className="w-full rounded-lg border border-neutral-200 py-1.5 pr-9 pl-3 text-[13.5px] text-neutral-800 outline-none placeholder:text-neutral-400 focus:border-sky-400"
+              className="focus:border-primary-400 w-full rounded-lg border border-neutral-200 py-1.5 pr-9 pl-3 text-[13.5px] text-neutral-800 outline-none placeholder:text-neutral-400"
             />
-            <SearchIcon className="pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-neutral-400" />
+            <Search className="pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-neutral-400" />
           </div>
         }
       />
@@ -67,7 +67,7 @@ export const CatalogPanel = ({
           />
         ))}
         <CategoryChip label="More">
-          <ChevronDownIcon className="h-3.5 w-3.5" />
+          <ChevronDown className="h-3.5 w-3.5" />
         </CategoryChip>
       </div>
 
@@ -87,7 +87,7 @@ export const CatalogPanel = ({
           aria-label="Show more items"
           className="absolute top-1/2 right-5 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-600 shadow-sm transition hover:text-neutral-900"
         >
-          <ChevronRightIcon className="h-4 w-4" />
+          <ChevronRight className="h-4 w-4" />
         </button>
       </div>
     </Card>
@@ -116,7 +116,6 @@ const CatalogCard = ({
       <div className="relative grid h-20 place-items-center bg-neutral-50 text-3xl leading-none">
         {item.emoji}
 
-        {/* Both chips overlap the tile edge so they cost no extra row. */}
         <span className="absolute -bottom-3.5 left-2 inline-flex h-7 items-center rounded-lg border border-neutral-200 bg-white px-2 text-[11.5px] font-medium text-neutral-600 shadow-xs">
           {item.size}
         </span>
@@ -126,10 +125,10 @@ const CatalogCard = ({
             <button
               type="button"
               aria-label={`Add ${item.name}`}
-              className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-sky-700 text-white shadow-sm transition hover:bg-sky-800"
+              className="bg-primary-700 hover:bg-primary-800 inline-flex h-7 w-7 items-center justify-center rounded-lg text-white shadow-sm transition"
               onClick={onIncrement}
             >
-              <PlusIcon className="h-3.5 w-3.5" />
+              <Plus className="h-3.5 w-3.5" />
             </button>
           ) : (
             <QuantityStepper

@@ -1,4 +1,4 @@
-import { MinusIcon, PlusIcon } from "./icons";
+import { Minus, Plus } from "lucide-react";
 
 const TONES = {
   neutral: {
@@ -7,7 +7,7 @@ const TONES = {
     count: "text-neutral-900",
   },
   primary: {
-    wrapper: "bg-sky-700",
+    wrapper: "bg-primary-700",
     button: "text-white/75 hover:text-white",
     count: "text-white",
   },
@@ -38,7 +38,7 @@ export const QuantityStepper = ({
         onClick={onDecrement}
         className={`inline-flex h-6 w-6 items-center justify-center transition ${styles.button}`}
       >
-        <MinusIcon className="h-3 w-3" />
+        <Minus className="h-3 w-3" />
       </button>
       <span
         className={`w-5 text-center text-[13px] font-medium tabular-nums ${styles.count}`}
@@ -51,7 +51,7 @@ export const QuantityStepper = ({
         onClick={onIncrement}
         className={`inline-flex h-6 w-6 items-center justify-center transition ${styles.button}`}
       >
-        <PlusIcon className="h-3 w-3" />
+        <Plus className="h-3 w-3" />
       </button>
     </div>
   );

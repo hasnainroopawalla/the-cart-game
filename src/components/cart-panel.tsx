@@ -1,7 +1,7 @@
 import * as React from "react";
 import { CATALOG_ITEMS, type CartItem } from "../data";
 import { Card, IconButton, PanelHeader, formatPrice } from "./card";
-import { CartIcon, CloseIcon, TrashIcon } from "./icons";
+import { ShoppingCart, Trash2, X } from "lucide-react";
 import { ItemInfoButton } from "./item-info-popover";
 import { QuantityStepper } from "./quantity-stepper";
 
@@ -42,7 +42,7 @@ const CartRow = ({
       className="h-6 w-6 border-0 text-neutral-300 hover:text-neutral-700"
       onClick={() => onRemove(item.id)}
     >
-      <CloseIcon className="h-3.5 w-3.5" />
+      <X className="h-3.5 w-3.5" />
     </IconButton>
   </li>
 );
@@ -80,7 +80,7 @@ export const CartPanel = ({
   return (
     <Card className="flex min-h-0 flex-col overflow-hidden">
       <PanelHeader
-        icon={<CartIcon className="h-5 w-5" />}
+        icon={<ShoppingCart className="h-5 w-5" />}
         title="Your Cart"
         subtitle={`${itemCount} ${itemCount === 1 ? "item" : "items"}`}
         right={
@@ -110,7 +110,7 @@ export const CartPanel = ({
           type="button"
           className="flex w-full items-center justify-center gap-2 rounded-xl border border-neutral-200 bg-neutral-50/60 py-2 text-[13.5px] font-medium text-neutral-600 transition hover:border-neutral-300 hover:text-neutral-900"
         >
-          <TrashIcon className="h-3.5 w-3.5" />
+          <Trash2 className="h-3.5 w-3.5" />
           Clear Cart
         </button>
       </div>
