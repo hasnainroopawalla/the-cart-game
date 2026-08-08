@@ -39,6 +39,10 @@ export function App() {
     [cartItems],
   );
 
+  const clearCart = React.useCallback(() => {
+    setCartItems(new Map());
+  }, []);
+
   return (
     <div className="bg-canvas min-h-screen text-neutral-900 antialiased lg:h-screen lg:min-h-0 lg:overflow-hidden">
       <div className="mx-auto flex max-w-300 flex-col px-6 py-6 lg:h-full">
@@ -53,6 +57,7 @@ export function App() {
               cartItems={cartItems}
               addItemToCart={addItemToCart}
               removeItemFromCart={removeItemFromCart}
+              clearCart={clearCart}
             />
           </div>
           <RulesPanel />

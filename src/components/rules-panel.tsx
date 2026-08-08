@@ -52,7 +52,7 @@ export const RulesPanel = () => (
     <PanelHeader
       icon={<NotepadText className="h-5 w-5" />}
       title="Rules"
-      subtitle="Adjust your cart until all pass."
+      subtitle="Tweak your cart to satisfy all rules."
       right={
         <span className="text-satisfied-600 text-[15px] font-bold tabular-nums">
           {GAME_STATE.rulesSatisfied}

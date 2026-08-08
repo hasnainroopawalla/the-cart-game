@@ -2,13 +2,7 @@ import * as React from "react";
 import { Card, PanelHeader, formatPrice } from "./card";
 import { ItemInfoButton } from "./item-info-popover";
 import { QuantityStepper } from "./quantity-stepper";
-import {
-  ChevronDown,
-  ChevronRight,
-  Plus,
-  Search,
-  ShoppingBasket,
-} from "lucide-react";
+import { ChevronDown, Plus, Search, ShoppingBasket } from "lucide-react";
 import { CATEGORIES, Catalog, type CatalogItem } from "../data";
 
 const CategoryChip = ({
@@ -82,13 +76,13 @@ export const CatalogPanel = ({
             />
           ))}
         </div>
-        <button
+        {/* <button
           type="button"
           aria-label="Show more items"
           className="absolute top-1/2 right-5 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-600 shadow-sm transition hover:text-neutral-900"
         >
           <ChevronRight className="h-4 w-4" />
-        </button>
+        </button> */}
       </div>
     </Card>
   );
