@@ -1,5 +1,6 @@
 import { CartPanel } from "./cart-panel";
 import { CatalogPanel } from "./catalog-panel";
+import { Footer } from "./footer";
 import { Header } from "./header";
 import { RulesPanel } from "./rules-panel";
 import { useCartItems } from "./use-cart-items";
@@ -32,6 +33,7 @@ export function App() {
           </div>
           <RulesPanel />
         </main>
+        <Footer />
       </div>
     </div>
   );
