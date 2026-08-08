@@ -1,9 +1,26 @@
 import * as React from "react";
 import { Card, IconButton, PanelHeader, formatPrice } from "./card";
-import { ShoppingCart, X } from "lucide-react";
+import {
+  Apple,
+  Beef,
+  Carrot,
+  Cookie,
+  CupSoda,
+  Milk,
+  ShoppingCart,
+  Tag,
+  Wheat,
+  X,
+} from "lucide-react";
 import { ItemInfoButton } from "./item-info-popover";
 import { QuantityStepper } from "./quantity-stepper";
-import { Catalog, type CatalogItem } from "../data";
+import {
+  CRITICAL_ATTRIBUTES,
+  Catalog,
+  RELEVANT_ATTRIBUTES,
+  type CatalogItem,
+  type ItemAttributes,
+} from "../data";
 
 type CartItem = CatalogItem & {
   quantity: number;
@@ -83,6 +100,76 @@ export const CartPanel = ({
   );
 };
 
+const COLOR_DOT: Record<ItemAttributes["color"], string> = {
+  green: "bg-emerald-500",
+  red: "bg-red-500",
+  yellow: "bg-amber-400",
+  orange: "bg-orange-400",
+  brown: "bg-amber-700",
+  white: "bg-neutral-300",
+};
+
+const CATEGORY_ICON: Record<string, React.ElementType> = {
+  Dairy: Milk,
+  Vegetables: Carrot,
+  Fruits: Apple,
+  Grains: Wheat,
+  Snacks: Cookie,
+  Drinks: CupSoda,
+};
+
+const AttributeChip = ({
+  icon: Icon,
+  critical,
+  title,
+  children,
+}: {
+  icon?: React.ElementType;
+  critical?: boolean;
+  title: string;
+  children: React.ReactNode;
+}) => (
+  <span
+    title={title}
+    className={`inline-flex shrink-0 items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] leading-none font-medium ${
+      critical
+        ? "bg-amber-50 text-amber-700"
+        : "bg-neutral-100 text-neutral-600"
+    }`}
+  >
+    {Icon && <Icon className="h-3 w-3" />}
+    {children}
+  </span>
+);
+
+const AttributeSummary = ({ attributes }: { attributes: ItemAttributes }) => (
+  <div className="hidden items-center gap-1 sm:flex">
+    {RELEVANT_ATTRIBUTES.has("category") && (
+      <AttributeChip
+        icon={CATEGORY_ICON[attributes.category] ?? Tag}
+        title={`Category: ${attributes.category}`}
+      >
+        {attributes.category}
+      </AttributeChip>
+    )}
+    {RELEVANT_ATTRIBUTES.has("protein") && (
+      <AttributeChip
+        icon={Beef}
+        critical={CRITICAL_ATTRIBUTES.has("protein")}
+        title={`Protein: ${attributes.protein}g`}
+      >
+        {attributes.protein}g
+      </AttributeChip>
+    )}
+    {RELEVANT_ATTRIBUTES.has("color") && (
+      <span
+        title={`Colour: ${attributes.color}`}
+        className={`h-2.5 w-2.5 shrink-0 rounded-full ring-1 ring-black/10 ${COLOR_DOT[attributes.color]}`}
+      />
+    )}
+  </div>
+);
+
 const CartRow = ({
   item,
   onQuantityChange,
@@ -94,16 +181,27 @@ const CartRow = ({
 }) => (
   <li className="flex items-center gap-3 border-b border-neutral-100 px-5 py-2 last:border-b-0">
     <span className="text-xl leading-none">{item.emoji}</span>
-    <div className="min-w-0 flex-1">
-      <div className="flex items-center gap-1">
-        <p className="truncate text-[14px] font-semibold text-neutral-900">
+    <div className="min-w-0 flex-1 space-y-0 sm:space-y-1">
+      <div className="flex items-baseline gap-1.5">
+        <p className="text-[14px] font-semibold text-neutral-900 sm:truncate">
           {item.name}
         </p>
-        <ItemInfoButton name={item.name} attributes={item.attributes} />
+        {item.size && (
+          <span className="hidden shrink-0 text-[12px] text-neutral-400 sm:inline">
+            <span className="pr-1.5 text-neutral-300">·</span>
+            {item.size}
+          </span>
+        )}
+        <span className="self-center sm:hidden">
+          <ItemInfoButton name={item.name} attributes={item.attributes} />
+        </span>
       </div>
       {item.size && (
-        <p className="truncate text-[12px] text-neutral-500">{item.size}</p>
+        <p className="truncate text-[12px] text-neutral-500 sm:hidden">
+          {item.size}
+        </p>
       )}
+      <AttributeSummary attributes={item.attributes} />
     </div>
     <QuantityStepper
       quantity={item.quantity}

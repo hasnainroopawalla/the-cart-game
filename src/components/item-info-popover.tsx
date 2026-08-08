@@ -107,7 +107,7 @@ export const ItemInfoButton = ({
         popoverTarget={panelId}
         aria-label={`Details for ${name}`}
         className={`inline-flex shrink-0 items-center justify-center rounded-full transition ${className} ${
-          open ? "text-neutral-700" : "text-neutral-300 hover:text-neutral-600"
+          open ? "text-neutral-800" : "text-neutral-400 hover:text-neutral-700"
         }`}
       >
         <Info className="h-3.5 w-3.5" />

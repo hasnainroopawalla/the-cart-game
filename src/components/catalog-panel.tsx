@@ -119,7 +119,7 @@ const CatalogCard = ({
             <button
               type="button"
               aria-label={`Add ${item.name}`}
-              className="bg-primary-700 hover:bg-primary-800 inline-flex h-7 w-7 items-center justify-center rounded-lg text-white shadow-sm transition"
+              className="border-primary-200 text-primary-700 hover:bg-primary-50 inline-flex h-7 w-7 items-center justify-center rounded-lg border bg-white shadow-sm transition"
               onClick={onIncrement}
             >
               <Plus className="h-3.5 w-3.5" />
