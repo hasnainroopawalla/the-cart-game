@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Card, IconButton, PanelHeader, formatPrice } from "./card";
-import { ShoppingCart, Trash2, X } from "lucide-react";
+import { ShoppingCart, X } from "lucide-react";
 import { ItemInfoButton } from "./item-info-popover";
 import { QuantityStepper } from "./quantity-stepper";
 import { Catalog, type CatalogItem } from "../data";
@@ -49,9 +49,20 @@ export const CartPanel = ({
         title="Your Cart"
         subtitle={`${itemCount} ${itemCount === 1 ? "item" : "items"}`}
         right={
-          <span className="text-[22px] font-bold text-neutral-900 tabular-nums">
-            {formatPrice(totalAmount)}
-          </span>
+          <div className="flex items-center gap-3">
+            {cartItems.size > 0 && (
+              <button
+                type="button"
+                onClick={clearCart}
+                className="cursor-pointer rounded-lg px-2 py-1 text-[13px] font-medium text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-900"
+              >
+                Clear
+              </button>
+            )}
+            <span className="text-[22px] font-bold text-neutral-900 tabular-nums">
+              {formatPrice(totalAmount)}
+            </span>
+          </div>
         }
       />
 
@@ -68,17 +79,6 @@ export const CartPanel = ({
           ) : null;
         })}
       </ul>
-
-      <div className="shrink-0 px-5 pt-3 pb-4">
-        <button
-          type="button"
-          className="flex w-full items-center justify-center gap-2 rounded-xl border border-neutral-200 bg-neutral-50/60 py-2 text-[13.5px] font-medium text-neutral-600 transition hover:border-neutral-300 hover:text-neutral-900"
-          onClick={clearCart}
-        >
-          <Trash2 className="h-3.5 w-3.5" />
-          Clear Cart
-        </button>
-      </div>
     </Card>
   );
 };
