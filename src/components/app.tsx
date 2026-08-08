@@ -1,4 +1,4 @@
-import { CartPanel } from "./cart-panel";
+import { CartPanel } from "./cart-panel/cart-panel";
 import { CatalogPanel } from "./catalog-panel";
 import { Footer } from "./footer";
 import { Header } from "./header";

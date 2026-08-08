@@ -3,7 +3,7 @@ import { Card, PanelHeader, formatPrice } from "./card";
 import { ItemInfoButton } from "./item-info-popover";
 import { QuantityStepper } from "./quantity-stepper";
 import { ChevronDown, Plus, Search, ShoppingBasket } from "lucide-react";
-import { CATEGORIES, Catalog, type CatalogItem } from "../data";
+import { CATEGORIES, Catalog, CatalogItem } from "../data";
 
 const CategoryChip = ({
   label,

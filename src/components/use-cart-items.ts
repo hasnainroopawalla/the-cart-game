@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { CartItemsMap } from "./cart-panel";
+import type { CartItemsMap } from "./cart-panel/cart-panel";
 
 export const useCartItems = () => {
   const [cartItems, setCartItems] = React.useState<CartItemsMap>(new Map());
