@@ -24,14 +24,8 @@ const ATTRIBUTE_ROWS: {
   label: string;
   render: (attributes: ItemAttributes) => React.ReactNode;
 }[] = [
-  { key: "brand", label: "Brand", render: (a) => a.brand },
   { key: "category", label: "Category", render: (a) => a.category },
   { key: "protein", label: "Protein", render: (a) => `${a.protein}g` },
-  {
-    key: "addedSugar",
-    label: "Added sugar",
-    render: (a) => (a.addedSugar ? "Yes" : "No"),
-  },
   {
     key: "color",
     label: "Colour",

@@ -1,5 +1,4 @@
 import * as React from "react";
-import { CATALOG_ITEMS, CATEGORIES, type CatalogItem } from "../data";
 import { Card, PanelHeader, formatPrice } from "./card";
 import { ItemInfoButton } from "./item-info-popover";
 import { QuantityStepper } from "./quantity-stepper";
@@ -10,6 +9,7 @@ import {
   Search,
   ShoppingBasket,
 } from "lucide-react";
+import { CATEGORIES, Catalog, type CatalogItem } from "../data";
 
 const CategoryChip = ({
   label,
@@ -73,7 +73,7 @@ export const CatalogPanel = ({
 
       <div className="relative mt-3 px-5 pb-5">
         <div className="flex gap-3 overflow-x-auto pb-1">
-          {CATALOG_ITEMS.map((item) => (
+          {Catalog.items.map((item) => (
             <CatalogCard
               key={item.id}
               item={item}

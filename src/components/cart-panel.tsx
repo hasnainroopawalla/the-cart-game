@@ -1,9 +1,13 @@
 import * as React from "react";
-import { CATALOG_ITEMS, type CartItem } from "../data";
 import { Card, IconButton, PanelHeader, formatPrice } from "./card";
 import { ShoppingCart, Trash2, X } from "lucide-react";
 import { ItemInfoButton } from "./item-info-popover";
 import { QuantityStepper } from "./quantity-stepper";
+import { Catalog, type CatalogItem } from "../data";
+
+export type CartItem = CatalogItem & {
+  quantity: number;
+};
 
 export type CartItemsMap = Map<string /* itemId */, number /* quantity */>;
 
@@ -35,7 +39,7 @@ const CartRow = ({
       onDecrement={() => onQuantityChange(item.id, -1)}
     />
     <span className="w-14 text-right text-[14px] font-semibold text-neutral-900 tabular-nums">
-      {formatPrice(item.price)}
+      {formatPrice(item.price * item.quantity)}
     </span>
     <IconButton
       label={`Remove ${item.name}`}
@@ -56,22 +60,21 @@ export const CartPanel = ({
   addItemToCart: (itemId: string, quantity: number) => void;
   removeItemFromCart: (itemId: string) => void;
 }) => {
-  // const itemCount = Array.from(cartItems.values()).reduce((sum, quantity) => sum + quantity, 0);
-  // const total = Array.from(cartItems.entries()).reduce(
-  //   (sum, [itemId, quantity]) => {
-  //     const item = CATALOG_ITEMS.find((item) => item.id === itemId);
-  //     return item ? sum + item.price * quantity : sum;
-  //   },
-  //   0,
-  // );
-
   const { itemCount, totalAmount } = React.useMemo(
     () =>
-      Array.from(cartItems.values()).reduce(
-        (acc, quantity) => ({
-          itemCount: acc.itemCount + quantity,
-          totalAmount: acc.totalAmount + 100, // TODO: add catalog lookup for price
-        }),
+      Array.from(cartItems.entries()).reduce(
+        (acc, [itemId, quantity]) => {
+          const itemUnitPrice = Catalog.byId.get(itemId)?.price;
+
+          if (!itemUnitPrice) {
+            throw new Error(`Unknown Item. [id=${itemId}]`);
+          }
+
+          return {
+            itemCount: acc.itemCount + quantity,
+            totalAmount: acc.totalAmount + itemUnitPrice * quantity,
+          };
+        },
         { itemCount: 0, totalAmount: 0 },
       ),
     [cartItems],
@@ -92,8 +95,7 @@ export const CartPanel = ({
 
       <ul className="min-h-0 flex-auto overflow-y-auto">
         {Array.from(cartItems.entries()).map(([itemId, quantity]) => {
-          // TODO: add a proper lookup
-          const item = CATALOG_ITEMS.find((item) => item.id === itemId);
+          const item = Catalog.byId.get(itemId);
           return item ? (
             <CartRow
               key={item.id}

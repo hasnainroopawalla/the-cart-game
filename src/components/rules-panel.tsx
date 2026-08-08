@@ -1,6 +1,6 @@
-import { GAME_STATE, RULES, type Rule, type RuleStatus } from "../data";
 import { Card, PanelHeader } from "./card";
 import { CircleCheck, CircleX, Clock, NotepadText } from "lucide-react";
+import { GAME_STATE, RULES, type Rule, type RuleStatus } from "../data";
 
 const STATUS_ICON: Record<RuleStatus, React.ReactNode> = {
   satisfied: <CircleCheck className="text-satisfied-500 h-5 w-5" />,
