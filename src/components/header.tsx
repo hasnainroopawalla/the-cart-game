@@ -1,8 +1,5 @@
-import { CircleHelp } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 import { GithubIcon } from "./icons";
-
-const ICON_BUTTON =
-  "inline-flex h-11 w-11 items-center justify-center rounded-xl border border-neutral-200 bg-white text-neutral-500 shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition hover:border-neutral-300 hover:text-neutral-900";
 
 const HeaderButton = ({
   icon,
@@ -13,9 +10,9 @@ const HeaderButton = ({
 }) => (
   <button
     type="button"
-    className="inline-flex items-center gap-2 rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-[14px] font-medium text-neutral-700 shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition hover:border-neutral-300 hover:text-neutral-900"
+    className="cursor-pointer inline-flex items-center gap-2 rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-[14px] font-medium text-neutral-700 shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition hover:border-neutral-300 hover:text-neutral-900"
   >
-    <span className="text-neutral-500">{icon}</span>
+    <span className="text-neutral-700">{icon}</span>
     {label}
   </button>
 );
@@ -39,18 +36,14 @@ export const Header = () => (
     </div>
 
     <div className="flex items-center gap-2.5">
-      <HeaderButton icon={<CircleHelp className="h-4 w-4" />} label="Help" />
-      {/* <HeaderButton
-        icon={<RestartIcon className="h-4 w-4" />}
-        label="Restart"
-      /> */}
+      <HeaderButton icon={<RotateCcw className="h-4 w-4" />} label="New Game" />
       <a
-        href="https://github.com/hasnainroopawalla/cart-game"
+        href="https://github.com/hasnainroopawalla/the-cart-game"
         target="_blank"
         rel="noreferrer"
         aria-label="View source on GitHub"
         title="View source on GitHub"
-        className={ICON_BUTTON}
+        className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-neutral-200 bg-white text-neutral-700 shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition hover:border-neutral-300 hover:text-neutral-900"
       >
         <GithubIcon className="h-4.5 w-4.5" />
       </a>
