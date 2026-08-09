@@ -26,9 +26,10 @@ function getTotal(cartItems: CartItems): number {
 }
 
 function getItemCount(cartItems: CartItems): number {
-  return Array.from(cartItems.entries()).reduce((acc, [_, quantity]) => {
-    return acc + quantity;
-  }, 0);
+  return Array.from(cartItems.values()).reduce(
+    (acc, quantity) => acc + quantity,
+    0,
+  );
 }
 
 function countByCategory(cartItems: CartItems, category: Category): number {

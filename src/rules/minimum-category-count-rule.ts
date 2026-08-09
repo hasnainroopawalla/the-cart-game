@@ -19,7 +19,7 @@ export class MinimumCategoryCountRule extends Rule {
 
   public getLabel(): string {
     // TODO: fix pluralization
-    return `At least ${this.count} ${this.category}`;
+    return `Buy at least ${this.count} item${this.count > 1 ? "s" : ""} from '${this.category}'`;
   }
 
   public evaluate(cartItems: CartItems): boolean {

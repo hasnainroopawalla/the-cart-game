@@ -31,10 +31,8 @@ export class BudgetRangeRule extends Rule {
     const total = CartUtils.getTotal(solutionCart);
     const step = 50;
 
-    const min =
-      Math.floor(total / step) * step - MathUtils.randomInt(100, 300, step);
-    const max =
-      Math.ceil(total / step) * step + MathUtils.randomInt(100, 300, step);
+    const min = MathUtils.floorTo(total - MathUtils.randomInt(100, 300), step);
+    const max = MathUtils.ceilTo(total + MathUtils.randomInt(100, 300), step);
 
     return [Math.max(0, min), max];
   }

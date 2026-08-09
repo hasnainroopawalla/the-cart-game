@@ -1,6 +1,2 @@
-import { BudgetRangeRule } from "./budget-range";
-import { MinimumCategoryCountRule } from "./minimum-category-count";
-
-export { type Rule } from "./rule";
-
-export const Rules = [MinimumCategoryCountRule, BudgetRangeRule];
+export { Rule } from "./rule";
+export { RULE_FACTORIES } from "./rule-factories";

@@ -59,7 +59,7 @@ const RuleRow = ({ rule }: { rule: RulePanelEntry }) => (
   >
     {getStatusIcon(rule.isSatisfied)}
     <p
-      className={`min-w-0 flex-1 text-[14px] transition-colors duration-300 ${
+      className={`min-w-0 flex-1 text-[14px] first-letter:uppercase transition-colors duration-300 ${
         rule.isSatisfied ? "text-satisfied-600" : "text-failed-500"
       }`}
     >

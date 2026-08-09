@@ -1,5 +1,5 @@
 import { CartItems, Catalog, Categories, Category } from "./data";
-import { type Rule, Rules } from "./rules";
+import { Rule, RULE_FACTORIES } from "./rules";
 import { MathUtils } from "./utils";
 
 export type GameRule = {
@@ -45,11 +45,13 @@ export class Game {
   private generateRules(): GameRule[] {
     const solutionCart = this.generateSolutionCart();
 
-    return Rules.map((RuleClass) => ({
-      definition: new RuleClass(solutionCart),
+    const rules = RULE_FACTORIES.map((createRule) => ({
+      definition: createRule(solutionCart),
       isSatisfied: false,
       revealedAtIndex: null,
     }));
+
+    return MathUtils.shuffle(rules);
   }
 
   private generateSolutionCart(): CartItems {
