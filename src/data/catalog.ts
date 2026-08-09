@@ -1,5 +1,15 @@
 import type { CatalogItem } from "./types";
 
+export const Categories = [
+  "All",
+  "Fruits",
+  "Vegetables",
+  "Dairy",
+  "Snacks",
+  "Grains",
+  "Drinks",
+] as const;
+
 const CATALOG_ITEMS = [
   {
     id: "cheese",

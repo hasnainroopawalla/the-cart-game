@@ -8,11 +8,7 @@ import {
   Tag,
   Beef,
 } from "lucide-react";
-import {
-  RELEVANT_ATTRIBUTES,
-  CRITICAL_ATTRIBUTES,
-  type ItemAttributes,
-} from "../../data";
+import { type ItemAttributes } from "../../data";
 
 const COLOR_DOT: Record<ItemAttributes["color"], string> = {
   green: "bg-emerald-500",
@@ -62,28 +58,18 @@ export const AttributeSummary = ({
   attributes: ItemAttributes;
 }) => (
   <div className="hidden items-center gap-1 sm:flex">
-    {RELEVANT_ATTRIBUTES.has("category") && (
-      <AttributeChip
-        icon={CATEGORY_ICON[attributes.category] ?? Tag}
-        title={`Category: ${attributes.category}`}
-      >
-        {attributes.category}
-      </AttributeChip>
-    )}
-    {RELEVANT_ATTRIBUTES.has("protein") && (
-      <AttributeChip
-        icon={Beef}
-        critical={CRITICAL_ATTRIBUTES.has("protein")}
-        title={`Protein: ${attributes.protein}g`}
-      >
-        {attributes.protein}g
-      </AttributeChip>
-    )}
-    {RELEVANT_ATTRIBUTES.has("color") && (
-      <span
-        title={`Colour: ${attributes.color}`}
-        className={`h-2.5 w-2.5 shrink-0 rounded-full ring-1 ring-black/10 ${COLOR_DOT[attributes.color]}`}
-      />
-    )}
+    <AttributeChip
+      icon={CATEGORY_ICON[attributes.category] ?? Tag}
+      title={`Category: ${attributes.category}`}
+    >
+      {attributes.category}
+    </AttributeChip>
+    <AttributeChip icon={Beef} title={`Protein: ${attributes.protein}g`}>
+      {attributes.protein}g
+    </AttributeChip>
+    <span
+      title={`Colour: ${attributes.color}`}
+      className={`h-2.5 w-2.5 shrink-0 rounded-full ring-1 ring-black/10 ${COLOR_DOT[attributes.color]}`}
+    />
   </div>
 );

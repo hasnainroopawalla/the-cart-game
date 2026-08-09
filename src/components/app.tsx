@@ -1,9 +1,10 @@
-import { CartPanel } from "./cart-panel/cart-panel";
+import { CartPanel } from "./cart-panel";
 import { CatalogPanel } from "./catalog-panel";
 import { Footer } from "./footer";
 import { Header } from "./header";
 import { RulesPanel } from "./rules-panel";
 import { useCartItems } from "./use-cart-items";
+import { useGame } from "./use-game";
 
 export function App() {
   const {
@@ -14,10 +15,13 @@ export function App() {
     clearCart,
   } = useCartItems();
 
+  const { revealedRules: rules } = useGame(cartItems);
+
+  // TODO: Implement start new game functionality
   return (
     <div className="bg-canvas min-h-screen text-neutral-900 antialiased lg:h-screen lg:min-h-0 lg:overflow-hidden">
       <div className="mx-auto flex max-w-300 flex-col px-6 py-6 lg:h-full">
-        <Header />
+        <Header startNewGame={() => {}} />
         <main className="mt-5 grid min-h-0 flex-1 grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
           <div className="flex min-h-0 flex-col gap-5">
             <CatalogPanel
@@ -31,7 +35,7 @@ export function App() {
               clearCart={clearCart}
             />
           </div>
-          <RulesPanel />
+          <RulesPanel rules={rules} />
         </main>
         <Footer />
       </div>

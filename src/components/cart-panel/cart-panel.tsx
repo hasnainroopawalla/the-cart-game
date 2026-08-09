@@ -4,13 +4,16 @@ import { ShoppingCart, X } from "lucide-react";
 import { ItemInfoButton } from "../item-info-popover";
 import { QuantityStepper } from "../quantity-stepper";
 import { AttributeSummary } from "./attribute-summary";
-import { Catalog, type CatalogItem } from "../../data";
+import {
+  CartUtils,
+  Catalog,
+  type CartItems,
+  type CatalogItem,
+} from "../../data";
 
 type CartItem = CatalogItem & {
   quantity: number;
 };
-
-export type CartItemsMap = Map<string /* itemId */, number /* quantity */>;
 
 export const CartPanel = ({
   cartItems,
@@ -18,28 +21,13 @@ export const CartPanel = ({
   removeItemFromCart,
   clearCart,
 }: {
-  cartItems: CartItemsMap;
+  cartItems: CartItems;
   addItemToCart: (itemId: string, quantity: number) => void;
   removeItemFromCart: (itemId: string) => void;
   clearCart: () => void;
 }) => {
-  const { itemCount, totalAmount } = React.useMemo(
-    () =>
-      Array.from(cartItems.entries()).reduce(
-        (acc, [itemId, quantity]) => {
-          const itemUnitPrice = Catalog.byId.get(itemId)?.price;
-
-          if (!itemUnitPrice) {
-            throw new Error(`Unknown Item. [id=${itemId}]`);
-          }
-
-          return {
-            itemCount: acc.itemCount + quantity,
-            totalAmount: acc.totalAmount + itemUnitPrice * quantity,
-          };
-        },
-        { itemCount: 0, totalAmount: 0 },
-      ),
+  const [itemCount, totalAmount] = React.useMemo(
+    () => [CartUtils.getItemCount(cartItems), CartUtils.getTotal(cartItems)],
     [cartItems],
   );
 
@@ -69,15 +57,15 @@ export const CartPanel = ({
 
       <ul className="min-h-0 flex-auto overflow-y-auto">
         {Array.from(cartItems.entries()).map(([itemId, quantity]) => {
-          const item = Catalog.byId.get(itemId);
-          return item ? (
+          const item = CartUtils.getCatalogItem(itemId);
+          return (
             <CartRow
               key={item.id}
               item={{ ...item, quantity }}
               onQuantityChange={addItemToCart}
               onRemove={removeItemFromCart}
             />
-          ) : null;
+          );
         })}
       </ul>
     </Card>
@@ -93,7 +81,7 @@ const CartRow = ({
   onQuantityChange: (itemId: string, quantity: number) => void;
   onRemove: (itemId: string) => void;
 }) => (
-  <li className="flex items-center gap-3 border-b border-neutral-100 px-5 py-2 last:border-b-0">
+  <li className="animate-row-in flex items-center gap-3 border-b border-neutral-100 px-5 py-2 last:border-b-0">
     <span className="text-xl leading-none">{item.emoji}</span>
     <div className="min-w-0 flex-1 space-y-0 sm:space-y-1">
       <div className="flex items-baseline gap-1.5">

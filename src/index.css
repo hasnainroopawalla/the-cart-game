@@ -18,8 +18,46 @@
 
   --color-failed-50: #fef2f2;
   --color-failed-500: #ef4444;
+
+  --animate-rule-in: rule-in 280ms ease-out;
+  --animate-status-pop: status-pop 240ms ease-out;
+  --animate-row-in: rule-in 200ms ease-out;
+}
+
+@keyframes rule-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes status-pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.3;
+  }
+  60% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 body {
   font-family: var(--font-sans);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

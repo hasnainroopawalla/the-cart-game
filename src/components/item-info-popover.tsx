@@ -1,9 +1,5 @@
 import * as React from "react";
-import {
-  CRITICAL_ATTRIBUTES,
-  RELEVANT_ATTRIBUTES,
-  type ItemAttributes,
-} from "../data";
+import { type ItemAttributes } from "../data";
 import { Info } from "lucide-react";
 
 const PANEL_WIDTH = 224;
@@ -70,7 +66,7 @@ export const ItemInfoButton = ({
     };
   }, [open]);
 
-  const rows = ATTRIBUTE_ROWS.filter((row) => RELEVANT_ATTRIBUTES.has(row.key));
+  const rows = ATTRIBUTE_ROWS;
 
   if (rows.length === 0) {
     return null;
@@ -131,11 +127,10 @@ export const ItemInfoButton = ({
               <dt className="flex-1 text-[12px] text-neutral-500">
                 {row.label}
               </dt>
+              {/* TODO */}
               <dd
                 className={`text-[12px] font-medium ${
-                  CRITICAL_ATTRIBUTES.has(row.key)
-                    ? "text-amber-700"
-                    : "text-neutral-800"
+                  false ? "text-amber-700" : "text-neutral-800"
                 }`}
               >
                 {row.render(attributes)}

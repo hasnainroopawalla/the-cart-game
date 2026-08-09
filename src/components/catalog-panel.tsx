@@ -3,7 +3,7 @@ import { Card, PanelHeader, formatPrice } from "./card";
 import { ItemInfoButton } from "./item-info-popover";
 import { QuantityStepper } from "./quantity-stepper";
 import { ChevronDown, Plus, Search, ShoppingBasket } from "lucide-react";
-import { CATEGORIES, Catalog, CatalogItem } from "../data";
+import { Catalog, CatalogItem, Categories } from "../data";
 
 const CategoryChip = ({
   label,
@@ -53,7 +53,7 @@ export const CatalogPanel = ({
       />
 
       <div className="flex flex-wrap items-center gap-2 px-5 pt-4">
-        {CATEGORIES.map((category) => (
+        {Categories.map((category) => (
           <CategoryChip
             key={category}
             label={category}
