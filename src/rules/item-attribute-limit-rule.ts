@@ -36,12 +36,14 @@ export class ItemAttributeLimitRule extends Rule {
 
   private generateAmount(solutionCart: CartItems): number {
     const maxAttributeValue = Math.max(
-      ...Array.from(solutionCart.entries()).map(([itemId]) => {
-        const item = CartUtils.getCatalogItem(itemId);
-        return item.attributes[this.attribute];
-      }),
+      ...Array.from(solutionCart.keys()).map(
+        (itemId) => CartUtils.getCatalogItem(itemId).attributes[this.attribute],
+      ),
     );
 
-    return MathUtils.floorTo(maxAttributeValue + MathUtils.randomInt(1, 1), 5);
+    const { step, slackSteps } = ATTRIBUTE_META[this.attribute];
+    const slack = MathUtils.randomInt(slackSteps.min, slackSteps.max) * step;
+
+    return MathUtils.ceilTo(maxAttributeValue + slack, step);
   }
 }

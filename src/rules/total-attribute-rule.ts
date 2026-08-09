@@ -59,21 +59,16 @@ export class TotalAttributeRule extends Rule {
     const comparison =
       COMPARISONS[MathUtils.randomInt(0, COMPARISONS.length - 1)];
 
-    const { step } = ATTRIBUTE_META[this.attribute];
+    const { step, slackSteps } = ATTRIBUTE_META[this.attribute];
+    const slack = MathUtils.randomInt(slackSteps.min, slackSteps.max) * step;
 
     let amount: number;
     switch (comparison) {
       case "at least":
-        amount = Math.max(
-          0,
-          MathUtils.floorTo(amountInCart, step) -
-            MathUtils.randomInt(5, 30, step),
-        );
+        amount = Math.max(0, MathUtils.floorTo(amountInCart - slack, step));
         break;
       case "at most":
-        amount =
-          MathUtils.ceilTo(amountInCart, step) +
-          MathUtils.randomInt(5, 30, step);
+        amount = MathUtils.ceilTo(amountInCart + slack, step);
         break;
     }
 
