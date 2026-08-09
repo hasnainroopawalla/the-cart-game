@@ -6,9 +6,10 @@ import { RulePanelEntry } from "./rules-panel";
 export const useGame = (cartItems: CartItems) => {
   const [game, setGame] = React.useState(() => new Game());
 
-  const [revealedRules, setRevealedRules] = React.useState<RulePanelEntry[]>(
-    [],
-  );
+  const [snapshot, setSnapshot] = React.useState<{
+    rules: RulePanelEntry[];
+    hiddenRuleCount: number;
+  }>({ rules: [], hiddenRuleCount: 0 });
 
   const toRulePanelEntry = React.useCallback(
     (rule: GameRule): RulePanelEntry => ({
@@ -20,15 +21,16 @@ export const useGame = (cartItems: CartItems) => {
   );
 
   React.useEffect(() => {
-    if (game.evaluateRevealedRules(cartItems)) {
-      game.revealNextRule();
-    }
+    const { rules, hiddenRuleCount } = game.update(cartItems);
 
-    setRevealedRules(game.getVisibleRules().map(toRulePanelEntry));
+    setSnapshot({ rules: rules.map(toRulePanelEntry), hiddenRuleCount });
   }, [cartItems, game, toRulePanelEntry]);
 
+  const reset = React.useCallback(() => setGame(new Game()), []);
+
   return {
-    revealedRules,
-    reset: () => setGame(new Game()),
+    revealedRules: snapshot.rules,
+    hiddenRuleCount: snapshot.hiddenRuleCount,
+    reset,
   };
 };

@@ -42,7 +42,7 @@ export class ItemAttributeLimitRule extends Rule {
     );
 
     const { step, slackSteps } = ATTRIBUTE_META[this.attribute];
-    const slack = MathUtils.randomInt(slackSteps.min, slackSteps.max) * step;
+    const slack = MathUtils.randomInt(slackSteps.min, slackSteps.max);
 
     return MathUtils.ceilTo(maxAttributeValue + slack, step);
   }

@@ -5,41 +5,46 @@ import { MathUtils } from "./utils";
 export type GameRule = {
   definition: Rule;
   isSatisfied: boolean;
-  revealedAtIndex: number | null; // nth rule revealed, null if not yet
+};
+
+export type GameSnapshot = {
+  rules: GameRule[];
+  hiddenRuleCount: number;
 };
 
 export class Game {
   private rules: GameRule[];
-  private currentRuleIndex = 0;
+  private revealedCount = 1;
 
   constructor() {
     this.rules = this.generateRules();
-    this.revealRule(0);
   }
 
-  public getVisibleRules(): GameRule[] {
-    return this.rules
-      .filter((rule) => rule.revealedAtIndex !== null)
-      .sort((a, b) => b.revealedAtIndex! - a.revealedAtIndex!);
+  public getSnapshot(): GameSnapshot {
+    return {
+      rules: this.rules.slice(0, this.revealedCount).reverse(),
+      hiddenRuleCount: this.rules.length - this.revealedCount,
+    };
   }
 
-  public evaluateRevealedRules(cartItems: CartItems): boolean {
-    return this.rules.every((rule) => {
-      if (rule.revealedAtIndex === null) {
-        return true;
-      }
-
-      rule.isSatisfied = rule.definition.evaluate(cartItems);
-
-      return rule.isSatisfied;
-    });
-  }
-
-  public revealNextRule(): void {
-    const nextIndex = this.currentRuleIndex + 1;
-    if (nextIndex < this.rules.length) {
-      this.revealRule(nextIndex);
+  /** Keeps revealing while the cart satisfies everything on the board. */
+  public update(cartItems: CartItems): GameSnapshot {
+    while (
+      this.evaluateRevealedRules(cartItems) &&
+      this.revealedCount < this.rules.length
+    ) {
+      this.revealedCount++;
     }
+
+    return this.getSnapshot();
+  }
+
+  private evaluateRevealedRules(cartItems: CartItems): boolean {
+    return this.rules
+      .slice(0, this.revealedCount)
+      .every(
+        (rule) => (rule.isSatisfied = rule.definition.evaluate(cartItems)),
+      );
   }
 
   private generateRules(): GameRule[] {
@@ -48,7 +53,6 @@ export class Game {
     const rules = RULE_FACTORIES.map((createRule) => ({
       definition: createRule(solutionCart),
       isSatisfied: false,
-      revealedAtIndex: null,
     }));
 
     return MathUtils.shuffle(rules);
@@ -75,10 +79,5 @@ export class Game {
     }
 
     return solutionCart;
-  }
-
-  private revealRule(index: number): void {
-    this.currentRuleIndex = index;
-    this.rules[index].revealedAtIndex = index;
   }
 }

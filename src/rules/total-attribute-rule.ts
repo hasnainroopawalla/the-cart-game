@@ -32,13 +32,13 @@ export class TotalAttributeRule extends Rule {
   }
 
   public evaluate(cartItems: CartItems): boolean {
-    const count = CartUtils.sumAttribute(cartItems, this.attribute);
+    const attributeValue = CartUtils.sumAttribute(cartItems, this.attribute);
 
     switch (this.comparison) {
       case "at least":
-        return count >= this.amount;
+        return attributeValue >= this.amount;
       case "at most":
-        return count <= this.amount;
+        return attributeValue <= this.amount;
       default:
         return false;
     }
