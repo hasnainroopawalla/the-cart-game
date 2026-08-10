@@ -83,7 +83,7 @@ export const CatalogPanel = ({
                 Nothing matches that. Try another search or category.
               </p>
             ) : (
-              <div className="grid max-h-80 grid-cols-[repeat(auto-fill,minmax(8.5rem,1fr))] content-start gap-3 overflow-y-auto rounded-xl bg-neutral-100 p-3">
+              <div className="grid max-h-88 grid-cols-[repeat(auto-fill,minmax(8.5rem,1fr))] content-start gap-3 overflow-y-auto p-1">
                 {visibleItems.map((item) => (
                   <CatalogCard
                     key={item.id}
@@ -122,7 +122,7 @@ const CatalogCard = ({
 
   return (
     <article
-      className={`flex flex-col overflow-hidden rounded-xl bg-white shadow-xs transition hover:shadow-md ${
+      className={`flex flex-col overflow-hidden rounded-xl bg-white shadow-sm transition hover:shadow-md ${
         inCart ? "ring-primary-200 ring-2" : ""
       }`}
     >
@@ -171,7 +171,7 @@ const CatalogCard = ({
       </div>
 
       <p
-        className="line-clamp-2 px-2.5 pt-0.5 pb-2.5 text-[12.5px] leading-4 font-semibold text-neutral-800"
+        className="line-clamp-2 h-8 px-2.5 pt-0.5 pb-2.5 text-[12.5px] leading-4 font-semibold text-neutral-800"
         title={item.name}
       >
         {item.name}
