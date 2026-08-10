@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Card, PanelHeader, formatPrice } from "./card";
+import { Card, CollapseToggle, PanelHeader, formatPrice } from "./card";
 import { ItemInfoButton } from "./item-info-popover";
 import { QuantityStepper } from "./quantity-stepper";
 import { Plus, Search, ShoppingBasket } from "lucide-react";
@@ -14,6 +14,7 @@ export const CatalogPanel = ({
 }) => {
   const [query, setQuery] = React.useState("");
   const [category, setCategory] = React.useState<Category | null>(null);
+  const [isOpen, setIsOpen] = React.useState(true);
 
   const visibleItems = React.useMemo(() => {
     const search = query.trim().toLowerCase();
@@ -26,59 +27,76 @@ export const CatalogPanel = ({
   }, [query, category]);
 
   return (
-    <Card className="shrink-0">
+    <Card className="flex shrink-0 flex-col overflow-hidden">
       <PanelHeader
         icon={<ShoppingBasket className="h-5 w-5" />}
         title="Item Catalog"
-        subtitle={`${visibleItems.length} of ${Catalog.items.length} items`}
+        subtitle={
+          isOpen
+            ? `${visibleItems.length} of ${Catalog.items.length} items`
+            : `${Catalog.items.length} items available`
+        }
         right={
-          <div className="relative w-64">
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search for an item..."
-              className="focus:border-primary-400 w-full rounded-lg border border-neutral-200 py-1.5 pr-9 pl-3 text-[13.5px] text-neutral-800 outline-none placeholder:text-neutral-400"
+          <div className="flex items-center gap-2">
+            {isOpen && (
+              <div className="relative w-64">
+                <input
+                  type="search"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search for an item..."
+                  className="focus:border-primary-400 w-full rounded-lg border border-neutral-200 py-1.5 pr-9 pl-3 text-[13.5px] text-neutral-800 outline-none placeholder:text-neutral-400"
+                />
+                <Search className="pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-neutral-400" />
+              </div>
+            )}
+            <CollapseToggle
+              isOpen={isOpen}
+              onToggle={() => setIsOpen((open) => !open)}
+              label="catalog"
             />
-            <Search className="pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-neutral-400" />
           </div>
         }
       />
 
-      <div className="flex flex-wrap items-center gap-2 px-5 pt-4">
-        <CategoryChip
-          label="All"
-          active={category === null}
-          onClick={() => setCategory(null)}
-        />
-        {Categories.map((name) => (
-          <CategoryChip
-            key={name}
-            label={name}
-            active={name === category}
-            onClick={() => setCategory(name)}
-          />
-        ))}
-      </div>
-
-      <div className="mt-3 px-5 pb-5">
-        {visibleItems.length === 0 ? (
-          <p className="py-6 text-center text-[13px] text-neutral-400">
-            Nothing matches that. Try another search or category.
-          </p>
-        ) : (
-          <div className="flex gap-3 overflow-x-auto rounded-xl bg-neutral-100 p-3">
-            {visibleItems.map((item) => (
-              <CatalogCard
-                key={item.id}
-                item={item}
-                onQuantityChange={addItemToCart}
-                quantityInCart={getQuantityByItemId(item.id)}
+      {isOpen && (
+        <>
+          <div className="flex flex-wrap items-center gap-2 px-5 pt-4">
+            <CategoryChip
+              label="All"
+              active={category === null}
+              onClick={() => setCategory(null)}
+            />
+            {Categories.map((name) => (
+              <CategoryChip
+                key={name}
+                label={name}
+                active={name === category}
+                onClick={() => setCategory(name)}
               />
             ))}
           </div>
-        )}
-      </div>
+
+          <div className="mt-3 px-5 pb-5">
+            {visibleItems.length === 0 ? (
+              <p className="py-6 text-center text-[13px] text-neutral-400">
+                Nothing matches that. Try another search or category.
+              </p>
+            ) : (
+              <div className="grid max-h-80 grid-cols-[repeat(auto-fill,minmax(8.5rem,1fr))] content-start gap-3 overflow-y-auto rounded-xl bg-neutral-100 p-3">
+                {visibleItems.map((item) => (
+                  <CatalogCard
+                    key={item.id}
+                    item={item}
+                    onQuantityChange={addItemToCart}
+                    quantityInCart={getQuantityByItemId(item.id)}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </>
+      )}
     </Card>
   );
 };
@@ -104,7 +122,7 @@ const CatalogCard = ({
 
   return (
     <article
-      className={`flex w-36 shrink-0 flex-col overflow-hidden rounded-xl bg-white shadow-xs transition hover:shadow-md ${
+      className={`flex flex-col overflow-hidden rounded-xl bg-white shadow-xs transition hover:shadow-md ${
         inCart ? "ring-primary-200 ring-2" : ""
       }`}
     >

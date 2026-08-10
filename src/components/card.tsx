@@ -1,4 +1,5 @@
 import * as React from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 export const Card = ({
   className = "",
@@ -37,6 +38,30 @@ export const PanelHeader = ({
     </div>
     {right}
   </header>
+);
+
+export const CollapseToggle = ({
+  isOpen,
+  onToggle,
+  label,
+}: {
+  isOpen: boolean;
+  onToggle: () => void;
+  label: string;
+}) => (
+  <button
+    type="button"
+    onClick={onToggle}
+    aria-expanded={isOpen}
+    aria-label={`${isOpen ? "Collapse" : "Expand"} ${label}`}
+    className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-900"
+  >
+    {isOpen ? (
+      <ChevronUp className="h-4 w-4" />
+    ) : (
+      <ChevronDown className="h-4 w-4" />
+    )}
+  </button>
 );
 
 export const IconButton = ({
