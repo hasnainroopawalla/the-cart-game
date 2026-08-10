@@ -106,7 +106,7 @@ export const CatalogPanel = ({
                 Nothing matches that. Try another search or category.
               </p>
             ) : (
-              <div className="grid max-h-88 grid-cols-[repeat(auto-fill,minmax(8.5rem,1fr))] content-start gap-3 overflow-y-auto p-1">
+              <div className="grid max-h-100 grid-cols-[repeat(auto-fill,minmax(8.5rem,1fr))] content-start gap-3 overflow-y-auto p-1">
                 {visibleItems.map((item) => (
                   <CatalogCard
                     key={item.id}
