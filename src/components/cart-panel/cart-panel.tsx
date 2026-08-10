@@ -43,7 +43,7 @@ export const CartPanel = ({
               <button
                 type="button"
                 onClick={clearCart}
-                className="cursor-pointer rounded-lg px-2 py-1 text-[13px] font-medium text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-900"
+                className="rounded-lg px-2 py-1 text-[13px] font-medium text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-900"
               >
                 Clear
               </button>

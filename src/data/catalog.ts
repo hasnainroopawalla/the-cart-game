@@ -1,7 +1,6 @@
 import type { CatalogItem } from "./types";
 
 export const Categories = [
-  "All",
   "Fruits",
   "Vegetables",
   "Dairy",

@@ -18,7 +18,7 @@ const HeaderButton = ({
   <button
     type="button"
     onClick={onClick}
-    className="cursor-pointer inline-flex items-center gap-2 rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-[14px] font-medium text-neutral-700 shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition hover:border-neutral-300 hover:text-neutral-900"
+    className="inline-flex items-center gap-2 rounded-xl border border-neutral-200 bg-white px-4 py-2.5 text-[14px] font-medium text-neutral-700 shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition hover:border-neutral-300 hover:text-neutral-900"
   >
     <span className="text-neutral-700">{icon}</span>
     {label}
