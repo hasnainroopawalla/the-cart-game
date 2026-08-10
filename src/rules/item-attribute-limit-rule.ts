@@ -1,4 +1,4 @@
-import { ATTRIBUTE_META, CartItems, CartUtils } from "../data";
+import { NUMERIC_ATTRIBUTES, CartItems, CartUtils } from "../data";
 import { type AttributeName, type RuleProgress, Rule } from "./rule";
 import { MathUtils } from "../utils";
 
@@ -14,7 +14,7 @@ export class ItemAttributeLimitRule extends Rule {
   }
 
   public getLabel(): string {
-    const { unit, label } = ATTRIBUTE_META[this.attribute];
+    const { unit, label } = NUMERIC_ATTRIBUTES[this.attribute];
     return `Avoid items above ${this.amount}${unit} of ${label}`;
   }
 
@@ -41,7 +41,7 @@ export class ItemAttributeLimitRule extends Rule {
       ),
     );
 
-    const { step, slackSteps } = ATTRIBUTE_META[this.attribute];
+    const { step, slackSteps } = NUMERIC_ATTRIBUTES[this.attribute];
     const slack = MathUtils.randomInt(slackSteps.min, slackSteps.max);
 
     return MathUtils.ceilTo(maxAttributeValue + slack, step);

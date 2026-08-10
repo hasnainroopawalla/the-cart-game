@@ -1,39 +1,45 @@
 import * as React from "react";
-import { type ItemAttributes } from "../data";
-import { Info } from "lucide-react";
+import {
+  NUMERIC_ATTRIBUTES,
+  type ItemAttributes,
+  type NumericAttributes,
+} from "../data";
+import { Info, Shapes } from "lucide-react";
+import { NUMERIC_ATTRIBUTE_STYLE, getCategoryIcon } from "./attribute-style";
 
 const PANEL_WIDTH = 224;
 const ESTIMATED_PANEL_HEIGHT = 180;
 const VIEWPORT_MARGIN = 8;
 
-const COLOR_SWATCH: Record<ItemAttributes["color"], string> = {
-  green: "bg-emerald-500",
-  red: "bg-red-500",
-  yellow: "bg-amber-400",
-  orange: "bg-orange-400",
-  brown: "bg-amber-700",
-  white: "bg-neutral-200",
-};
-
 const ATTRIBUTE_ROWS: {
   key: keyof ItemAttributes;
   label: string;
+  className: string;
+  icon: React.ElementType;
+  /** Sits beside the value when the value itself has an icon. */
+  getValueIcon?: (attributes: ItemAttributes) => React.ElementType;
   render: (attributes: ItemAttributes) => React.ReactNode;
 }[] = [
-  { key: "category", label: "Category", render: (a) => a.category },
-  { key: "protein", label: "Protein", render: (a) => `${a.protein}g` },
   {
-    key: "color",
-    label: "Colour",
-    render: (a) => (
-      <span className="inline-flex items-center gap-1.5 capitalize">
-        <span
-          className={`h-2.5 w-2.5 rounded-full ring-1 ring-black/10 ${COLOR_SWATCH[a.color]}`}
-        />
-        {a.color}
-      </span>
-    ),
+    key: "category",
+    label: "Category",
+    className: "text-neutral-800",
+    icon: Shapes,
+    getValueIcon: (a) => getCategoryIcon(a.category),
+    render: (a) => a.category,
   },
+  ...Object.entries(NUMERIC_ATTRIBUTES).map(([key, { label, unit }]) => {
+    const attribute = key as keyof NumericAttributes;
+    const { icon, textClass } = NUMERIC_ATTRIBUTE_STYLE[attribute];
+
+    return {
+      key: attribute,
+      label,
+      className: textClass,
+      icon,
+      render: (a: ItemAttributes) => `${a[attribute]}${unit}`,
+    };
+  }),
 ];
 
 export const ItemInfoButton = ({
@@ -122,21 +128,25 @@ export const ItemInfoButton = ({
           {name}
         </p>
         <dl className="space-y-1.5">
-          {rows.map((row) => (
-            <div key={row.key} className="flex items-center gap-3">
-              <dt className="flex-1 text-[12px] text-neutral-500">
-                {row.label}
-              </dt>
-              {/* TODO */}
-              <dd
-                className={`text-[12px] font-medium ${
-                  false ? "text-amber-700" : "text-neutral-800"
-                }`}
-              >
-                {row.render(attributes)}
-              </dd>
-            </div>
-          ))}
+          {rows.map((row) => {
+            const { icon: Icon } = row;
+            const ValueIcon = row.getValueIcon?.(attributes);
+
+            return (
+              <div key={row.key} className="flex items-center gap-3">
+                <dt className="flex flex-1 items-center gap-1.5 text-[12px] text-neutral-500 capitalize">
+                  <Icon className="h-3.5 w-3.5 shrink-0" />
+                  {row.label}
+                </dt>
+                <dd
+                  className={`flex items-center gap-1.5 text-[12px] font-medium ${row.className}`}
+                >
+                  {ValueIcon && <ValueIcon className="h-3.5 w-3.5 shrink-0" />}
+                  {row.render(attributes)}
+                </dd>
+              </div>
+            );
+          })}
         </dl>
       </div>
     </>

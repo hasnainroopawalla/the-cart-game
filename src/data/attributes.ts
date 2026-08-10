@@ -1,6 +1,6 @@
 import type { NumericAttributes } from "./types";
 
-export const ATTRIBUTE_META: Record<
+export const NUMERIC_ATTRIBUTES: Record<
   keyof NumericAttributes,
   {
     unit: string;
@@ -11,9 +11,19 @@ export const ATTRIBUTE_META: Record<
   }
 > = {
   protein: {
+    label: "protein",
     unit: "g",
     step: 5,
-    label: "protein",
+    slackSteps: { min: 1, max: 6 },
+  },
+  sugar: {
+    label: "sugar",
+    unit: "g",
+    step: 5,
     slackSteps: { min: 1, max: 6 },
   },
 };
+
+export const NUMERIC_ATTRIBUTE_NAMES = Object.keys(
+  NUMERIC_ATTRIBUTES,
+) as (keyof NumericAttributes)[];

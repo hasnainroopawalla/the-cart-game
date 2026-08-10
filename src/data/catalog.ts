@@ -16,7 +16,7 @@ const CATALOG_ITEMS = [
     emoji: "🧀",
     size: "200g",
     price: 120,
-    attributes: { category: "Dairy", protein: 25, color: "yellow" },
+    attributes: { category: "Dairy", protein: 25, sugar: 10 },
   },
   {
     id: "yogurt",
@@ -24,7 +24,7 @@ const CATALOG_ITEMS = [
     emoji: "🍶",
     size: "400g",
     price: 75,
-    attributes: { category: "Dairy", protein: 9, color: "white" },
+    attributes: { category: "Dairy", protein: 9, sugar: 10 },
   },
   {
     id: "potato",
@@ -32,7 +32,7 @@ const CATALOG_ITEMS = [
     emoji: "🥔",
     size: "1kg",
     price: 28,
-    attributes: { category: "Vegetables", protein: 2, color: "brown" },
+    attributes: { category: "Vegetables", protein: 2, sugar: 10 },
   },
   {
     id: "chicken",
@@ -40,7 +40,7 @@ const CATALOG_ITEMS = [
     emoji: "🍗",
     size: "1kg",
     price: 210,
-    attributes: { category: "Snacks", protein: 31, color: "brown" },
+    attributes: { category: "Snacks", protein: 31, sugar: 10 },
   },
   {
     id: "oats",
@@ -48,7 +48,7 @@ const CATALOG_ITEMS = [
     emoji: "🥣",
     size: "500g",
     price: 80,
-    attributes: { category: "Grains", protein: 13, color: "brown" },
+    attributes: { category: "Grains", protein: 13, sugar: 10 },
   },
   {
     id: "juice",
@@ -56,7 +56,7 @@ const CATALOG_ITEMS = [
     emoji: "🧃",
     size: "1 L",
     price: 95,
-    attributes: { category: "Drinks", protein: 1, color: "orange" },
+    attributes: { category: "Drinks", protein: 1, sugar: 10 },
   },
   {
     id: "chips",
@@ -64,7 +64,7 @@ const CATALOG_ITEMS = [
     emoji: "🍟",
     size: "150g",
     price: 40,
-    attributes: { category: "Snacks", protein: 3, color: "yellow" },
+    attributes: { category: "Snacks", protein: 3, sugar: 10 },
   },
 ] satisfies CatalogItem[];
 

@@ -6,11 +6,11 @@ export type Category = (typeof Categories)[number];
 
 export type NumericAttributes = {
   protein: number;
+  sugar: number;
 };
 
 export type ItemAttributes = NumericAttributes & {
   category: Category;
-  color: "green" | "red" | "yellow" | "orange" | "brown" | "white";
 };
 
 export type CatalogItem = {

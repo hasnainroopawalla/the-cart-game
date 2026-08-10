@@ -1,4 +1,4 @@
-import { ATTRIBUTE_META, CartItems, CartUtils } from "../data";
+import { NUMERIC_ATTRIBUTES, CartItems, CartUtils } from "../data";
 import { MathUtils } from "../utils";
 import { AttributeName, Rule, type RuleProgress } from "./rule";
 
@@ -18,7 +18,7 @@ export class TotalAttributeRule extends Rule {
   }
 
   public getLabel(): string {
-    const { unit, label } = ATTRIBUTE_META[this.attribute];
+    const { unit, label } = NUMERIC_ATTRIBUTES[this.attribute];
 
     switch (this.comparison) {
       case "at least":
@@ -45,7 +45,7 @@ export class TotalAttributeRule extends Rule {
   }
 
   public getProgress(cartItems: CartItems): RuleProgress {
-    const { unit } = ATTRIBUTE_META[this.attribute];
+    const { unit } = NUMERIC_ATTRIBUTES[this.attribute];
 
     return {
       current: `${CartUtils.sumAttribute(cartItems, this.attribute)}${unit}`,
@@ -59,7 +59,7 @@ export class TotalAttributeRule extends Rule {
     const comparison =
       COMPARISONS[MathUtils.randomInt(0, COMPARISONS.length - 1)];
 
-    const { step, slackSteps } = ATTRIBUTE_META[this.attribute];
+    const { step, slackSteps } = NUMERIC_ATTRIBUTES[this.attribute];
     const slack = MathUtils.randomInt(slackSteps.min, slackSteps.max) * step;
 
     let amount: number;

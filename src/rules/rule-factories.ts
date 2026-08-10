@@ -3,13 +3,13 @@ import { BudgetRangeRule } from "./budget-range-rule";
 import { MinimumCategoryCountRule } from "./minimum-category-count-rule";
 import { ItemAttributeLimitRule } from "./item-attribute-limit-rule";
 
-import { ATTRIBUTE_META, CartItems, NumericAttributes } from "../data";
+import { NUMERIC_ATTRIBUTES, CartItems, NumericAttributes } from "../data";
 import { Rule } from "./rule";
 
 type RuleFactory = (solutionCart: CartItems) => Rule;
 
 const attributeNames = Object.keys(
-  ATTRIBUTE_META,
+  NUMERIC_ATTRIBUTES,
 ) as (keyof NumericAttributes)[];
 
 const totalAttributeRuleFactories: RuleFactory[] = attributeNames.map(
