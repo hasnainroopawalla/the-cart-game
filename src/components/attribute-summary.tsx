@@ -8,7 +8,7 @@ import {
   Tag,
   Beef,
 } from "lucide-react";
-import { type ItemAttributes } from "../../data";
+import { type ItemAttributes } from "../data";
 
 const COLOR_DOT: Record<ItemAttributes["color"], string> = {
   green: "bg-emerald-500",
@@ -54,15 +54,20 @@ const AttributeChip = ({
 
 export const AttributeSummary = ({
   attributes,
+  compact,
+  className = "",
 }: {
   attributes: ItemAttributes;
+  compact?: boolean;
+  className?: string;
 }) => (
-  <div className="hidden items-center gap-1 sm:flex">
+  // Display is left to the caller so it can hide the strip responsively.
+  <div className={`flex-wrap items-center gap-1 ${className}`}>
     <AttributeChip
       icon={CATEGORY_ICON[attributes.category] ?? Tag}
       title={`Category: ${attributes.category}`}
     >
-      {attributes.category}
+      {!compact && attributes.category}
     </AttributeChip>
     <AttributeChip icon={Beef} title={`Protein: ${attributes.protein}g`}>
       {attributes.protein}g

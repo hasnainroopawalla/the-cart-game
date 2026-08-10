@@ -3,7 +3,7 @@ import { Card, IconButton, PanelHeader, formatPrice } from "../card";
 import { ShoppingCart, X } from "lucide-react";
 import { ItemInfoButton } from "../item-info-popover";
 import { QuantityStepper } from "../quantity-stepper";
-import { AttributeSummary } from "./attribute-summary";
+import { AttributeSummary } from "../attribute-summary";
 import { CartUtils, type CartItems, type CatalogItem } from "../../data";
 
 type CartItem = CatalogItem & {
@@ -98,7 +98,10 @@ const CartRow = ({
           {item.size}
         </p>
       )}
-      <AttributeSummary attributes={item.attributes} />
+      <AttributeSummary
+        attributes={item.attributes}
+        className="hidden sm:flex"
+      />
     </div>
     <QuantityStepper
       quantity={item.quantity}
