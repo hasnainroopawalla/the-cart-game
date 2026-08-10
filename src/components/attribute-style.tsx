@@ -38,3 +38,28 @@ export const NUMERIC_ATTRIBUTE_STYLE: Record<
     textClass: "text-rose-700",
   },
 };
+
+export const VegMark = ({
+  isVegetarian,
+  className = "h-3.5 w-3.5",
+}: {
+  isVegetarian: boolean;
+  className?: string;
+}) => {
+  const label = isVegetarian ? "Vegetarian" : "Non-vegetarian";
+
+  return (
+    <span
+      title={label}
+      aria-label={label}
+      role="img"
+      className={`inline-flex shrink-0 items-center justify-center rounded-[3px] border ${className} ${
+        isVegetarian
+          ? "border-emerald-600 text-emerald-600"
+          : "border-red-600 text-red-600"
+      }`}
+    >
+      <span className="h-1.5 w-1.5 rounded-full bg-current" />
+    </span>
+  );
+};

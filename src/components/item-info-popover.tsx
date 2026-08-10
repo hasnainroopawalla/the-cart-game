@@ -5,7 +5,11 @@ import {
   type NumericAttributes,
 } from "../data";
 import { Info, Shapes } from "lucide-react";
-import { NUMERIC_ATTRIBUTE_STYLE, getCategoryIcon } from "./attribute-style";
+import {
+  NUMERIC_ATTRIBUTE_STYLE,
+  VegMark,
+  getCategoryIcon,
+} from "./attribute-style";
 
 const PANEL_WIDTH = 224;
 const ESTIMATED_PANEL_HEIGHT = 180;
@@ -124,7 +128,8 @@ export const ItemInfoButton = ({
         style={{ width: PANEL_WIDTH }}
         className="fixed inset-auto m-0 rounded-xl border border-neutral-200 bg-white p-3 shadow-lg"
       >
-        <p className="mb-2 text-[13px] font-semibold text-neutral-900">
+        <p className="mb-2 flex items-center gap-1.5 text-[13px] font-semibold text-neutral-900">
+          <VegMark isVegetarian={attributes.isVegetarian} />
           {name}
         </p>
         <dl className="space-y-1.5">

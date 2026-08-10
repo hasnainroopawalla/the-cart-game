@@ -9,9 +9,14 @@ export type NumericAttributes = {
   sugar: number;
 };
 
-export type ItemAttributes = NumericAttributes & {
-  category: Category;
+export type BooleanAttributes = {
+  isVegetarian: boolean;
 };
+
+export type ItemAttributes = NumericAttributes &
+  BooleanAttributes & {
+    category: Category;
+  };
 
 export type CatalogItem = {
   id: string;

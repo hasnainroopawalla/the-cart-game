@@ -16,7 +16,12 @@ const CATALOG_ITEMS = [
     emoji: "🧀",
     size: "200g",
     price: 120,
-    attributes: { category: "Dairy", protein: 25, sugar: 10 },
+    attributes: {
+      category: "Dairy",
+      protein: 25,
+      sugar: 10,
+      isVegetarian: true,
+    },
   },
   {
     id: "yogurt",
@@ -24,7 +29,12 @@ const CATALOG_ITEMS = [
     emoji: "🍶",
     size: "400g",
     price: 75,
-    attributes: { category: "Dairy", protein: 9, sugar: 10 },
+    attributes: {
+      category: "Dairy",
+      protein: 9,
+      sugar: 10,
+      isVegetarian: true,
+    },
   },
   {
     id: "potato",
@@ -32,7 +42,12 @@ const CATALOG_ITEMS = [
     emoji: "🥔",
     size: "1kg",
     price: 28,
-    attributes: { category: "Vegetables", protein: 2, sugar: 10 },
+    attributes: {
+      category: "Vegetables",
+      protein: 2,
+      sugar: 10,
+      isVegetarian: true,
+    },
   },
   {
     id: "chicken",
@@ -40,7 +55,12 @@ const CATALOG_ITEMS = [
     emoji: "🍗",
     size: "1kg",
     price: 210,
-    attributes: { category: "Snacks", protein: 31, sugar: 10 },
+    attributes: {
+      category: "Snacks",
+      protein: 31,
+      sugar: 10,
+      isVegetarian: false,
+    },
   },
   {
     id: "oats",
@@ -48,7 +68,12 @@ const CATALOG_ITEMS = [
     emoji: "🥣",
     size: "500g",
     price: 80,
-    attributes: { category: "Grains", protein: 13, sugar: 10 },
+    attributes: {
+      category: "Grains",
+      protein: 13,
+      sugar: 10,
+      isVegetarian: true,
+    },
   },
   {
     id: "juice",
@@ -56,7 +81,12 @@ const CATALOG_ITEMS = [
     emoji: "🧃",
     size: "1 L",
     price: 95,
-    attributes: { category: "Drinks", protein: 1, sugar: 10 },
+    attributes: {
+      category: "Drinks",
+      protein: 1,
+      sugar: 10,
+      isVegetarian: true,
+    },
   },
   {
     id: "chips",
@@ -64,7 +94,12 @@ const CATALOG_ITEMS = [
     emoji: "🍟",
     size: "150g",
     price: 40,
-    attributes: { category: "Snacks", protein: 3, sugar: 10 },
+    attributes: {
+      category: "Snacks",
+      protein: 3,
+      sugar: 10,
+      isVegetarian: true,
+    },
   },
 ] satisfies CatalogItem[];
 

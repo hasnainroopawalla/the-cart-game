@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Card, CollapseToggle, PanelHeader, formatPrice } from "./card";
 import { AttributeSummary } from "./attribute-summary";
+import { VegMark } from "./attribute-style";
 import { ItemInfoButton } from "./item-info-popover";
 import { QuantityStepper } from "./quantity-stepper";
 import { Plus, Search, ShoppingBasket, Tags } from "lucide-react";
@@ -189,11 +190,14 @@ const CatalogCard = ({
         <span className="text-[14px] font-bold text-neutral-900 tabular-nums">
           {formatPrice(item.price)}
         </span>
-        <ItemInfoButton
-          name={item.name}
-          attributes={item.attributes}
-          className="h-6 w-6"
-        />
+        <div className="flex items-center gap-1">
+          <VegMark isVegetarian={item.attributes.isVegetarian} />
+          <ItemInfoButton
+            name={item.name}
+            attributes={item.attributes}
+            className="h-6 w-6"
+          />
+        </div>
       </div>
 
       <p

@@ -1,11 +1,11 @@
 import * as React from "react";
-import { Card, IconButton, PanelHeader, formatPrice } from "../card";
+import { Card, IconButton, PanelHeader, formatPrice } from "./card";
 import { ShoppingCart, X } from "lucide-react";
-import { ItemInfoButton } from "../item-info-popover";
-import { QuantityStepper } from "../quantity-stepper";
-import { AttributeSummary } from "../attribute-summary";
-import { VegMark } from "../attribute-style";
-import { CartUtils, type CartItems, type CatalogItem } from "../../data";
+import { ItemInfoButton } from "./item-info-popover";
+import { QuantityStepper } from "./quantity-stepper";
+import { AttributeSummary } from "./attribute-summary";
+import { VegMark } from "./attribute-style";
+import { CartUtils, type CartItems, type CatalogItem } from "../data";
 
 type CartItem = CatalogItem & {
   quantity: number;

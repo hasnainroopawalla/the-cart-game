@@ -34,7 +34,6 @@ export const AttributeSummary = ({
   compact?: boolean;
   className?: string;
 }) => (
-  // Display is left to the caller so it can hide the strip responsively.
   <div className={`flex-wrap items-center gap-1 ${className}`}>
     <AttributeChip
       icon={getCategoryIcon(attributes.category)}
