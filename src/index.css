@@ -19,7 +19,8 @@
   --color-failed-50: #fef2f2;
   --color-failed-500: #ef4444;
 
-  --animate-rule-in: rule-in 280ms ease-out;
+  /* `backwards` so a delayed row stays hidden instead of flashing in first. */
+  --animate-rule-in: rule-in 280ms ease-out backwards;
   --animate-status-pop: status-pop 240ms ease-out;
   --animate-row-in: rule-in 200ms ease-out;
 }

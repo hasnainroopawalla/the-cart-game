@@ -33,11 +33,11 @@ export const CatalogPanel = ({
     <Card className="flex min-h-0 flex-col overflow-hidden">
       <PanelHeader
         icon={<ShoppingBasket className="h-5 w-5" />}
-        title="Item Catalog"
+        title="Catalog"
         subtitle={
           isPanelOpen
             ? `${visibleItems.length} of ${Catalog.items.length} items`
-            : `${Catalog.items.length} items available`
+            : `${Catalog.items.length} items`
         }
         right={
           <div className="flex items-center gap-2">

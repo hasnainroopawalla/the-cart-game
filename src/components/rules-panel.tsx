@@ -38,9 +38,6 @@ export const RulesPanel = ({
     rules.length,
   ];
 
-  // Rules lead the page on mobile, so they collapse to keep the catalog near the top.
-  const [isPanelOpen, setIsPanelOpen] = React.useState(false);
-
   return (
     <Card
       className={`flex max-h-full min-h-0 flex-col self-start overflow-hidden ${className}`}
@@ -58,22 +55,11 @@ export const RulesPanel = ({
                 &nbsp;/ {totalCount}
               </span>
             </span>
-            <span className="lg:hidden">
-              <CollapseToggle
-                isOpen={isPanelOpen}
-                onToggle={() => setIsPanelOpen((open) => !open)}
-                label="rules"
-              />
-            </span>
           </div>
         }
       />
 
-      <ul
-        className={`min-h-0 flex-auto overflow-y-auto ${
-          isPanelOpen ? "" : "hidden lg:block"
-        }`}
-      >
+      <ul className="min-h-0 flex-auto overflow-y-auto">
         {rules.map((rule, index) => (
           <RuleRow key={rule.label} rule={rule} index={index} />
         ))}
@@ -87,17 +73,13 @@ const ROW_STAGGER_MS = 300;
 const RuleRow = ({ rule, index }: { rule: RulePanelEntry; index: number }) => (
   <li
     className="animate-rule-in flex items-center gap-3 border-b border-dashed border-neutral-200 px-5 py-3 last:border-b-0"
-    // `backwards` holds the row hidden through its delay instead of flashing in first.
-    style={{
-      animationDelay: `${index * ROW_STAGGER_MS}ms`,
-      animationFillMode: "backwards",
-    }}
+    style={{ animationDelay: `${index * ROW_STAGGER_MS}ms` }}
   >
     <StatusBox isSatisfied={rule.isSatisfied} />
     <p
       className={`min-w-0 flex-1 text-[14px] first-letter:uppercase transition-colors duration-300 ${
         rule.isSatisfied
-          ? "text-neutral-400 line-through decoration-satisfied-400"
+          ? "text-neutral-400 line-through decoration-satisfied-400 decoration-1"
           : "text-failed-500"
       }`}
     >
