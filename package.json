@@ -1,8 +1,8 @@
 {
   "name": "cart-game",
   "version": "1.0.1",
-  "description": "",
-  "homepage": "https://hasnainroopawalla.github.io/cart-game",
+  "description": "🛒 Grocery puzzle game — build a cart that satisfies a list of competing rules",
+  "homepage": "https://hasnainroopawalla.github.io/the-cart-game",
   "private": true,
   "type": "module",
   "scripts": {
@@ -21,9 +21,16 @@
   "keywords": [
     "game",
     "browser-game",
+    "puzzle",
+    "puzzle-game",
+    "logic-game",
+    "constraint-satisfaction",
+    "grocery",
+    "shopping-list",
     "react",
     "typescript",
-    "vite"
+    "vite",
+    "tailwindcss"
   ],
   "author": "Hasnain Roopawalla",
   "license": "MIT",
