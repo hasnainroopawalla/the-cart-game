@@ -74,16 +74,25 @@ export const RulesPanel = ({
           isPanelOpen ? "" : "hidden lg:block"
         }`}
       >
-        {rules.map((rule) => (
-          <RuleRow key={rule.label} rule={rule} />
+        {rules.map((rule, index) => (
+          <RuleRow key={rule.label} rule={rule} index={index} />
         ))}
       </ul>
     </Card>
   );
 };
 
-const RuleRow = ({ rule }: { rule: RulePanelEntry }) => (
-  <li className="animate-rule-in flex items-center gap-3 border-b border-dashed border-neutral-200 px-5 py-3 last:border-b-0">
+const ROW_STAGGER_MS = 300;
+
+const RuleRow = ({ rule, index }: { rule: RulePanelEntry; index: number }) => (
+  <li
+    className="animate-rule-in flex items-center gap-3 border-b border-dashed border-neutral-200 px-5 py-3 last:border-b-0"
+    // `backwards` holds the row hidden through its delay instead of flashing in first.
+    style={{
+      animationDelay: `${index * ROW_STAGGER_MS}ms`,
+      animationFillMode: "backwards",
+    }}
+  >
     <StatusBox isSatisfied={rule.isSatisfied} />
     <p
       className={`min-w-0 flex-1 text-[14px] first-letter:uppercase transition-colors duration-300 ${
