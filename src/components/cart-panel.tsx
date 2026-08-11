@@ -2,8 +2,7 @@ import * as React from "react";
 import { Card, IconButton, PanelHeader, formatPrice } from "./card";
 import { ShoppingCart, X } from "lucide-react";
 import { QuantityStepper } from "./quantity-stepper";
-import { AttributeSummary } from "./attribute-summary";
-import { VegMark } from "./attribute-style";
+import { AttributeSummary, VegMark } from "./attributes";
 import { CartUtils, type CartItems, type CatalogItem } from "../data";
 
 type CartItem = CatalogItem & {

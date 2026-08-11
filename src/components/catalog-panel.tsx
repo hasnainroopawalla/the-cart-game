@@ -1,8 +1,7 @@
 import * as React from "react";
 import cn from "classnames";
 import { Card, CollapseToggle, PanelHeader, formatPrice } from "./card";
-import { AttributeSummary } from "./attribute-summary";
-import { VegMark, getCategoryIcon } from "./attribute-style";
+import { AttributeSummary, VegMark, getCategoryIcon } from "./attributes";
 import { QuantityStepper } from "./quantity-stepper";
 import { Plus, Search, SearchX, ShoppingBasket } from "lucide-react";
 import { Catalog, CatalogItem, Categories, Category } from "../data";

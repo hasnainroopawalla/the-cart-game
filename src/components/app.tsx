@@ -5,6 +5,7 @@ import { Footer } from "./footer";
 import { GameCompleteOverlay } from "./game-complete-overlay";
 import { Header } from "./header";
 import { ShoppingListPanel } from "./shopping-list-panel";
+import { DebugSolutionPanel } from "./debug-panel";
 import { useCartItems } from "./use-cart-items";
 import { useGame } from "./use-game";
 import { CartUtils } from "../data";
@@ -21,7 +22,8 @@ export function App() {
     clearCart,
   } = useCartItems();
 
-  const { rules, isGameComplete, startNewGame, moveCount } = useGame(cartItems);
+  const { rules, isGameComplete, startNewGame, moveCount, solutionCart } =
+    useGame(cartItems);
 
   const { getElapsedSeconds, restart: restartElapsedTime } = useElapsedTime();
 
@@ -30,7 +32,7 @@ export function App() {
     clearCart();
     restartElapsedTime();
     setIsSummaryDismissed(false);
-  }, [clearCart, startNewGame]);
+  }, [clearCart, startNewGame, restartElapsedTime]);
 
   return (
     <div className="bg-canvas min-h-screen text-neutral-900 antialiased lg:h-screen lg:min-h-0 lg:overflow-hidden">
@@ -51,6 +53,8 @@ export function App() {
         </main>
         <Footer />
       </div>
+
+      <DebugSolutionPanel solutionCart={solutionCart} />
 
       {isGameComplete && !isSummaryDismissed && (
         <GameCompleteOverlay

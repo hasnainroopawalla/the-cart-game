@@ -32,10 +32,13 @@ export const useGame = (cartItems: CartItems) => {
     setGame(new Game());
   }, []);
 
+  const solutionCart = React.useMemo(() => game.getSolutionCart(), [game]);
+
   return {
     rules: snapshot.rules,
     moveCount: game.moveCount,
     isGameComplete,
     startNewGame,
+    solutionCart,
   };
 };

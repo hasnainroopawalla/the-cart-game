@@ -3,7 +3,7 @@ import {
   NUMERIC_ATTRIBUTES,
   NUMERIC_ATTRIBUTE_NAMES,
   type ItemAttributes,
-} from "../data";
+} from "../../data";
 import { NUMERIC_ATTRIBUTE_STYLE, getCategoryIcon } from "./attribute-style";
 
 const AttributeChip = ({

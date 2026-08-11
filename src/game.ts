@@ -17,13 +17,20 @@ export class Game {
   public moveCount: number = -1;
 
   private rules: GameRule[];
+  private readonly solutionCart: CartItems;
 
   constructor() {
+    this.solutionCart = this.generateSolutionCart();
     this.rules = this.generateRules();
   }
 
   public getSnapshot(): GameSnapshot {
     return { rules: this.rules };
+  }
+
+  /** One cart known to satisfy every rule on the board. Others may exist. */
+  public getSolutionCart(): CartItems {
+    return new Map(this.solutionCart);
   }
 
   public update(cartItems: CartItems): GameSnapshot {
@@ -43,11 +50,9 @@ export class Game {
   }
 
   private generateRules(): GameRule[] {
-    const solutionCart = this.generateSolutionCart();
-
-    return this.pickRuleFactories(solutionCart, GameConfig.ruleCount).map(
+    return this.pickRuleFactories(this.solutionCart, GameConfig.ruleCount).map(
       (factory) => ({
-        definition: factory.create(solutionCart),
+        definition: factory.create(this.solutionCart),
         isSatisfied: false,
       }),
     );

@@ -1,6 +1,6 @@
 {
   "name": "cart-game",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "🛒 Grocery puzzle game — build a cart that satisfies a list of competing rules",
   "homepage": "https://hasnainroopawalla.github.io/the-cart-game",
   "private": true,

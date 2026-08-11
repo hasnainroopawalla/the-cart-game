@@ -10,7 +10,7 @@ import {
   NUMERIC_ATTRIBUTE_STYLE,
   VegMark,
   getCategoryIcon,
-} from "./attribute-style";
+} from "./attributes/attribute-style";
 
 const PANEL_WIDTH = 224;
 const ESTIMATED_PANEL_HEIGHT = 180;

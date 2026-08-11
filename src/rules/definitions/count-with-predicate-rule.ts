@@ -65,7 +65,7 @@ export class CountWithPredicateRule extends Rule {
     const bar =
       betterWhen === "higher"
         ? `${this.amount}${unit} or more`
-        : `under ${this.amount}${unit}`;
+        : `${this.amount}${unit} or less`;
 
     return `At least ${this.count} different item${this.count > 1 ? "s" : ""} with ${bar} of ${label}`;
   }

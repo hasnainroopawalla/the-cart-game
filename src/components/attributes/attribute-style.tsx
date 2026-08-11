@@ -12,7 +12,7 @@ import {
   Tag,
   Wheat,
 } from "lucide-react";
-import type { Category, NumericAttributes } from "../data";
+import type { Category, NumericAttributes } from "../../data";
 
 const CATEGORY_ICON: Partial<Record<Category, React.ElementType>> = {
   Dairy: Milk,
