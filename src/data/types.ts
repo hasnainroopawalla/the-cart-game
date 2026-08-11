@@ -10,7 +10,7 @@ export type NumericAttributes = {
   calories: number;
 };
 
-export type BooleanAttributes = {
+type BooleanAttributes = {
   isVegetarian: boolean;
 };
 

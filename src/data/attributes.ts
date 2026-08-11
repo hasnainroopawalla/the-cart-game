@@ -1,4 +1,4 @@
-import type { BooleanAttributes, NumericAttributes } from "./types";
+import type { NumericAttributes } from "./types";
 
 export const NUMERIC_ATTRIBUTES: Record<
   keyof NumericAttributes,
@@ -38,18 +38,3 @@ export const NUMERIC_ATTRIBUTES: Record<
 export const NUMERIC_ATTRIBUTE_NAMES = Object.keys(
   NUMERIC_ATTRIBUTES,
 ) as (keyof NumericAttributes)[];
-
-export const BOOLEAN_ATTRIBUTES: Record<
-  keyof BooleanAttributes,
-  {
-    label: string;
-  }
-> = {
-  isVegetarian: {
-    label: "vegetarian",
-  },
-};
-
-export const BOOLEAN_ATTRIBUTE_NAMES = Object.keys(
-  BOOLEAN_ATTRIBUTES,
-) as (keyof BooleanAttributes)[];
