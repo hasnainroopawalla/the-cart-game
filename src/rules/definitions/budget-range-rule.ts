@@ -1,6 +1,9 @@
-import { CartItems, CartUtils } from "../data";
-import { MathUtils } from "../utils";
-import { Rule, type RuleProgress } from "./rule";
+import { CartItems, CartUtils } from "../../data";
+import { MathUtils } from "../../utils";
+import { Rule, type RuleProgress } from "../rule";
+
+const STEP = 50;
+const SLACK_RUPEES = { min: 30, max: 80 };
 
 export class BudgetRangeRule extends Rule {
   private min: number;
@@ -29,10 +32,15 @@ export class BudgetRangeRule extends Rule {
 
   private generateRange(solutionCart: CartItems): [number, number] {
     const total = CartUtils.getTotal(solutionCart);
-    const step = 50;
 
-    const min = MathUtils.floorTo(total - MathUtils.randomInt(100, 300), step);
-    const max = MathUtils.ceilTo(total + MathUtils.randomInt(100, 300), step);
+    const min = MathUtils.floorTo(
+      total - MathUtils.randomInt(SLACK_RUPEES.min, SLACK_RUPEES.max),
+      STEP,
+    );
+    const max = MathUtils.ceilTo(
+      total + MathUtils.randomInt(SLACK_RUPEES.min, SLACK_RUPEES.max),
+      STEP,
+    );
 
     return [Math.max(0, min), max];
   }

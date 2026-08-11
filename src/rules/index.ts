@@ -1,2 +1,2 @@
-export { Rule } from "./rule";
-export { RULE_FACTORIES } from "./rule-factories";
+export { Rule, type RuleFamily } from "./rule";
+export { RULE_FACTORIES, type RuleFactory } from "./rule-factories";

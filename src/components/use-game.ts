@@ -8,8 +8,7 @@ export const useGame = (cartItems: CartItems) => {
 
   const [snapshot, setSnapshot] = React.useState<{
     rules: RulePanelEntry[];
-    hiddenRuleCount: number;
-  }>({ rules: [], hiddenRuleCount: 0 });
+  }>({ rules: [] });
 
   const toRulePanelEntry = React.useCallback(
     (rule: GameRule): RulePanelEntry => ({
@@ -21,16 +20,14 @@ export const useGame = (cartItems: CartItems) => {
   );
 
   React.useEffect(() => {
-    const { rules, hiddenRuleCount } = game.update(cartItems);
-
-    setSnapshot({ rules: rules.map(toRulePanelEntry), hiddenRuleCount });
+    const { rules } = game.update(cartItems);
+    setSnapshot({ rules: rules.map(toRulePanelEntry) });
   }, [cartItems, game, toRulePanelEntry]);
 
   const reset = React.useCallback(() => setGame(new Game()), []);
 
   return {
-    revealedRules: snapshot.rules,
-    hiddenRuleCount: snapshot.hiddenRuleCount,
+    rules: snapshot.rules,
     reset,
   };
 };

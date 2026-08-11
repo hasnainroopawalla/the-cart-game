@@ -25,13 +25,7 @@ const getStatusTextClass = (isSatisfied: boolean) =>
 const getStatusRowClass = (isSatisfied: boolean) =>
   isSatisfied ? "bg-satisfied-50/60" : "bg-failed-50/50";
 
-export const RulesPanel = ({
-  rules,
-  hiddenRuleCount,
-}: {
-  rules: RulePanelEntry[];
-  hiddenRuleCount: number;
-}) => {
+export const RulesPanel = ({ rules }: { rules: RulePanelEntry[] }) => {
   const [satisfiedCount, totalCount] = [
     rules.filter((rule) => rule.isSatisfied).length,
     rules.length,
@@ -54,23 +48,10 @@ export const RulesPanel = ({
         {rules.map((rule) => (
           <RuleRow key={rule.label} rule={rule} />
         ))}
-        {Array.from({ length: hiddenRuleCount }, (_, index) => (
-          <PendingRow key={`pending-${index}`} />
-        ))}
       </ul>
     </Card>
   );
 };
-
-const PendingRow = () => (
-  <li className="flex items-center gap-3 border-b border-neutral-100 px-5 py-3 last:border-b-0">
-    <span className="h-5 w-5 shrink-0 rounded-full border-2 border-dashed border-neutral-200" />
-    <span
-      className="flex-1 border-b border-dashed border-neutral-200"
-      aria-hidden="true"
-    />
-  </li>
-);
 
 const RuleRow = ({ rule }: { rule: RulePanelEntry }) => (
   <li

@@ -7,6 +7,7 @@ export type Category = (typeof Categories)[number];
 export type NumericAttributes = {
   protein: number;
   sugar: number;
+  calories: number;
 };
 
 export type BooleanAttributes = {

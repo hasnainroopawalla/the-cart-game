@@ -15,7 +15,7 @@ export function App() {
     clearCart,
   } = useCartItems();
 
-  const { revealedRules: rules, hiddenRuleCount } = useGame(cartItems);
+  const { rules } = useGame(cartItems);
 
   // TODO: Implement start new game functionality
   return (
@@ -35,7 +35,7 @@ export function App() {
               clearCart={clearCart}
             />
           </div>
-          <RulesPanel rules={rules} hiddenRuleCount={hiddenRuleCount} />
+          <RulesPanel rules={rules} />
         </main>
         <Footer />
       </div>

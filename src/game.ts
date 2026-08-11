@@ -1,6 +1,7 @@
-import { CartItems, Catalog, Categories, Category } from "./data";
-import { Rule, RULE_FACTORIES } from "./rules";
+import { CartItems, CartUtils, Catalog } from "./data";
+import { Rule, RULE_FACTORIES, RuleFactory, RuleFamily } from "./rules";
 import { MathUtils } from "./utils";
+import { GameConfig } from "./game.config";
 
 export type GameRule = {
   definition: Rule;
@@ -9,75 +10,100 @@ export type GameRule = {
 
 export type GameSnapshot = {
   rules: GameRule[];
-  hiddenRuleCount: number;
 };
 
 export class Game {
   private rules: GameRule[];
-  private revealedCount = 1;
 
   constructor() {
     this.rules = this.generateRules();
   }
 
   public getSnapshot(): GameSnapshot {
-    return {
-      rules: this.rules.slice(0, this.revealedCount).reverse(),
-      hiddenRuleCount: this.rules.length - this.revealedCount,
-    };
+    return { rules: this.rules };
   }
 
-  /** Keeps revealing while the cart satisfies everything on the board. */
   public update(cartItems: CartItems): GameSnapshot {
-    while (
-      this.evaluateRevealedRules(cartItems) &&
-      this.revealedCount < this.rules.length
-    ) {
-      this.revealedCount++;
-    }
+    this.rules.forEach((rule) => {
+      rule.isSatisfied = rule.definition.evaluate(cartItems);
+    });
 
     return this.getSnapshot();
-  }
-
-  private evaluateRevealedRules(cartItems: CartItems): boolean {
-    return this.rules
-      .slice(0, this.revealedCount)
-      .every(
-        (rule) => (rule.isSatisfied = rule.definition.evaluate(cartItems)),
-      );
   }
 
   private generateRules(): GameRule[] {
     const solutionCart = this.generateSolutionCart();
 
-    const rules = RULE_FACTORIES.map((createRule) => ({
-      definition: createRule(solutionCart),
-      isSatisfied: false,
-    }));
+    return this.pickRuleFactories(solutionCart, GameConfig.ruleCount).map(
+      (factory) => ({
+        definition: factory.create(solutionCart),
+        isSatisfied: false,
+      }),
+    );
+  }
 
-    return MathUtils.shuffle(rules);
+  private pickRuleFactories(
+    solutionCart: CartItems,
+    count: number,
+  ): RuleFactory[] {
+    const shuffled = MathUtils.shuffle(RULE_FACTORIES).filter(
+      (factory) => factory.canApply?.(solutionCart) ?? true,
+    );
+
+    const usedFamilies = new Set<RuleFamily>();
+
+    // One rule per family, so no family can take several slots on the board.
+    const picked = shuffled.filter((factory) => {
+      if (usedFamilies.has(factory.family)) return false;
+      usedFamilies.add(factory.family);
+      return true;
+    });
+
+    const remaining = shuffled.filter((factory) => !picked.includes(factory));
+
+    return [...picked, ...remaining].slice(0, count);
   }
 
   private generateSolutionCart(): CartItems {
-    const solutionCart: CartItems = new Map();
+    let cart = this.sampleCart();
 
-    const cartItemsCount = MathUtils.randomInt(5, Catalog.items.length - 1);
-
-    const seenCategories = new Set<Category>(Categories);
-
-    while (seenCategories.size > 0 && solutionCart.size < cartItemsCount) {
-      const item =
-        Catalog.items[MathUtils.randomInt(0, Catalog.items.length - 1)];
-
-      if (solutionCart.has(item.id)) {
-        continue;
-      }
-
-      seenCategories.delete(item.attributes.category);
-
-      solutionCart.set(item.id, /* itemQuantity */ MathUtils.randomInt(1, 4));
+    for (
+      let attempt = 1;
+      attempt < GameConfig.maxSampleAttempts &&
+      this.countCategories(cart) < GameConfig.minSolutionCategories;
+      attempt++
+    ) {
+      cart = this.sampleCart();
     }
 
-    return solutionCart;
+    return cart;
+  }
+
+  /** Sampled without replacement so the draw cannot stall on duplicates. */
+  private sampleCart(): CartItems {
+    const size = MathUtils.randomInt(
+      GameConfig.solutionItemCount.min,
+      GameConfig.solutionItemCount.max,
+    );
+
+    return new Map(
+      MathUtils.shuffle(Catalog.items)
+        .slice(0, size)
+        .map((item) => [
+          item.id,
+          MathUtils.randomInt(
+            GameConfig.solutionItemQuantity.min,
+            GameConfig.solutionItemQuantity.max,
+          ),
+        ]),
+    );
+  }
+
+  private countCategories(cartItems: CartItems): number {
+    return new Set(
+      Array.from(cartItems.keys()).map(
+        (itemId) => CartUtils.getCatalogItem(itemId).attributes.category,
+      ),
+    ).size;
   }
 }

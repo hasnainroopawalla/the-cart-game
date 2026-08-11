@@ -5,6 +5,8 @@ import {
   Carrot,
   Cookie,
   CupSoda,
+  Drumstick,
+  Flame,
   Milk,
   Tag,
   Wheat,
@@ -18,6 +20,7 @@ const CATEGORY_ICON: Partial<Record<Category, React.ElementType>> = {
   Grains: Wheat,
   Snacks: Cookie,
   Drinks: CupSoda,
+  Meat: Drumstick,
 };
 
 export const getCategoryIcon = (category: Category): React.ElementType =>
@@ -36,6 +39,11 @@ export const NUMERIC_ATTRIBUTE_STYLE: Record<
     icon: Candy,
     chipClass: "bg-rose-50/70 text-rose-700",
     textClass: "text-rose-700",
+  },
+  calories: {
+    icon: Flame,
+    chipClass: "bg-emerald-50 text-emerald-700",
+    textClass: "text-emerald-700",
   },
 };
 
