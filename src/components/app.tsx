@@ -10,6 +10,8 @@ import { useGame } from "./use-game";
 import { CartUtils } from "../data";
 
 export function App() {
+  const [isSummaryDismissed, setIsSummaryDismissed] = React.useState(false);
+
   const {
     cartItems,
     addItemToCart,
@@ -19,8 +21,6 @@ export function App() {
   } = useCartItems();
 
   const { rules, isGameComplete, startNewGame, moveCount } = useGame(cartItems);
-
-  const [isSummaryDismissed, setIsSummaryDismissed] = React.useState(false);
 
   const onPlayAgain = React.useCallback(() => {
     startNewGame();
@@ -48,7 +48,6 @@ export function App() {
         <Footer />
       </div>
 
-      {/* {true && ( */}
       {isGameComplete && !isSummaryDismissed && (
         <GameCompleteOverlay
           moveCount={moveCount}

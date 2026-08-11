@@ -2,10 +2,9 @@ import * as React from "react";
 import cn from "classnames";
 import { Card, CollapseToggle, PanelHeader, formatPrice } from "./card";
 import { AttributeSummary } from "./attribute-summary";
-import { VegMark } from "./attribute-style";
-import { ItemInfoButton } from "./item-info-popover";
+import { VegMark, getCategoryIcon } from "./attribute-style";
 import { QuantityStepper } from "./quantity-stepper";
-import { Plus, Search, SearchX, ShoppingBasket, Tags } from "lucide-react";
+import { Plus, Search, SearchX, ShoppingBasket } from "lucide-react";
 import { Catalog, CatalogItem, Categories, Category } from "../data";
 
 export const CatalogPanel = ({
@@ -18,7 +17,6 @@ export const CatalogPanel = ({
   const [query, setQuery] = React.useState("");
   const [category, setCategory] = React.useState<Category | null>(null);
   const [isPanelOpen, setIsPanelOpen] = React.useState(true);
-  const [showAttributes, setShowAttributes] = React.useState(true);
 
   const visibleItems = React.useMemo(() => {
     const search = query.trim().toLowerCase();
@@ -63,45 +61,23 @@ export const CatalogPanel = ({
 
       <div
         className={cn(
-          "flex items-start gap-2 px-5 pt-4",
+          "flex flex-wrap items-center gap-2 px-5 pt-4",
           !isPanelOpen && "hidden lg:flex",
         )}
       >
-        <div className="flex flex-1 flex-wrap items-center gap-2">
+        <CategoryChip
+          label="All"
+          active={category === null}
+          onClick={() => setCategory(null)}
+        />
+        {Categories.map((name) => (
           <CategoryChip
-            label="All"
-            active={category === null}
-            onClick={() => setCategory(null)}
+            key={name}
+            label={name}
+            active={name === category}
+            onClick={() => setCategory(name)}
           />
-          {Categories.map((name) => (
-            <CategoryChip
-              key={name}
-              label={name}
-              active={name === category}
-              onClick={() => setCategory(name)}
-            />
-          ))}
-        </div>
-
-        <button
-          type="button"
-          aria-pressed={showAttributes}
-          onClick={() => setShowAttributes((shown) => !shown)}
-          aria-label="Toggle item details"
-          title={
-            showAttributes
-              ? "Hide item details"
-              : "Show category, protein and colour on every card"
-          }
-          className={cn(
-            "inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border transition",
-            showAttributes
-              ? "border-primary-200 bg-primary-50 text-primary-700"
-              : "border-neutral-200 bg-white text-neutral-500 hover:border-neutral-300 hover:text-neutral-900",
-          )}
-        >
-          <Tags className="h-4 w-4" />
-        </button>
+        ))}
       </div>
 
       <div
@@ -130,7 +106,6 @@ export const CatalogPanel = ({
                 item={item}
                 onQuantityChange={addItemToCart}
                 quantityInCart={getQuantityByItemId(item.id)}
-                showAttributes={showAttributes}
               />
             ))}
           </div>
@@ -144,12 +119,10 @@ const CatalogCard = ({
   item,
   quantityInCart,
   onQuantityChange,
-  showAttributes,
 }: {
   item: CatalogItem;
   quantityInCart: number;
   onQuantityChange: (itemId: string, quantity: number) => void;
-  showAttributes: boolean;
 }) => {
   const onIncrement = React.useCallback(() => {
     onQuantityChange(item.id, 1);
@@ -160,12 +133,12 @@ const CatalogCard = ({
   }, [item.id, onQuantityChange]);
 
   const inCart = quantityInCart > 0;
+  const CategoryIcon = getCategoryIcon(item.attributes.category);
 
   return (
     <article
       className={cn(
-        "flex flex-col overflow-hidden rounded-xl bg-white shadow-sm transition hover:shadow-md",
-        showAttributes ? "pb-2.5" : "pb-2",
+        "flex flex-col overflow-hidden rounded-xl bg-white pb-2.5 shadow-sm transition hover:shadow-md",
         inCart && "ring-primary-200 ring-2",
       )}
     >
@@ -207,13 +180,12 @@ const CatalogCard = ({
         <span className="text-[14px] font-bold text-neutral-900 tabular-nums">
           {formatPrice(item.price)}
         </span>
-        <div className="flex items-center gap-1">
-          <VegMark isVegetarian={item.attributes.isVegetarian} />
-          <ItemInfoButton
-            name={item.name}
-            attributes={item.attributes}
-            className="h-6 w-6"
+        <div className="flex items-center gap-1.5">
+          <CategoryIcon
+            className="h-3.5 w-3.5 text-neutral-400"
+            aria-label={item.attributes.category}
           />
+          <VegMark isVegetarian={item.attributes.isVegetarian} />
         </div>
       </div>
 
@@ -224,13 +196,11 @@ const CatalogCard = ({
         {item.name}
       </p>
 
-      {showAttributes && (
-        <AttributeSummary
-          attributes={item.attributes}
-          compact
-          className="animate-row-in mt-auto flex px-2.5 pt-1.5"
-        />
-      )}
+      <AttributeSummary
+        attributes={item.attributes}
+        compact
+        className="mt-auto flex px-2.5 pt-1.5"
+      />
     </article>
   );
 };

@@ -29,8 +29,7 @@ export const RATIO_SUBJECTS: RatioSubject[] = [
     measure: "items",
     comparison: "at least",
     matches: (item) => item.attributes.isVegetarian,
-    describe: (fraction) =>
-      `At least ${fraction} of the cart must be vegetarian`,
+    describe: (fraction) => `At least ${fraction} the cart must be vegetarian`,
   },
   ...Categories.map(
     (category): RatioSubject => ({
@@ -38,8 +37,7 @@ export const RATIO_SUBJECTS: RatioSubject[] = [
       measure: "spend",
       comparison: "at most",
       matches: (item) => item.attributes.category === category,
-      describe: (fraction) =>
-        `At most ${fraction} of your spend on ${category}`,
+      describe: (fraction) => `Spend at most ${fraction} on ${category}`,
     }),
   ),
 ];
