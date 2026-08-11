@@ -34,6 +34,7 @@ export const useGame = (cartItems: CartItems) => {
 
   return {
     rules: snapshot.rules,
+    moveCount: game.moveCount,
     isGameComplete,
     startNewGame,
   };

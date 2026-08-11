@@ -4,13 +4,13 @@ import { formatPrice } from "./card";
 export const GameCompleteOverlay = ({
   itemCount,
   totalSpend,
-  ruleCount,
+  moveCount,
   onPlayAgain,
   onDismiss,
 }: {
   itemCount: number;
   totalSpend: number;
-  ruleCount: number;
+  moveCount: number;
   onPlayAgain: () => void;
   onDismiss: () => void;
 }) => (
@@ -26,14 +26,14 @@ export const GameCompleteOverlay = ({
       </span>
 
       <h2 className="mt-4 text-[20px] font-bold text-neutral-900">
-        List complete!
+        Shopping done!
       </h2>
       <p className="mt-1 text-[14px] text-neutral-500">
         Every rule on your shopping list is ticked.
       </p>
 
       <dl className="mt-5 grid grid-cols-3 gap-2 rounded-xl bg-neutral-50 p-3">
-        <Stat label="Rules" value={String(ruleCount)} />
+        <Stat label="Moves" value={String(moveCount)} />
         <Stat label="Items" value={String(itemCount)} />
         <Stat label="Spent" value={formatPrice(totalSpend)} />
       </dl>

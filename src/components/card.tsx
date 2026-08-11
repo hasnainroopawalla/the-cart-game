@@ -38,7 +38,9 @@ export const PanelHeader = ({
     <header
       className={cn(
         "flex shrink-0 items-center justify-between gap-3 border-b px-5 py-4",
-        isAccent ? "bg-primary-200/60 border-primary-200" : "border-neutral-200/70",
+        isAccent
+          ? "bg-primary-200/60 border-primary-200"
+          : "border-neutral-200/70",
       )}
     >
       <div className="flex items-center gap-3">

@@ -1,10 +1,4 @@
 import { RotateCcw } from "lucide-react";
-import { GithubIcon } from "./icons";
-
-const REPO_URL = "https://github.com/hasnainroopawalla/the-cart-game";
-
-const ICON_LINK =
-  "inline-flex h-11 w-11 items-center justify-center rounded-xl border border-neutral-200 bg-white text-neutral-700 shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition hover:border-neutral-300 hover:text-neutral-900";
 
 const HeaderButton = ({
   icon,
@@ -46,16 +40,6 @@ export const Header = ({ startNewGame }: { startNewGame: () => void }) => (
         label="New Game"
         onClick={startNewGame}
       />
-      <a
-        href={REPO_URL}
-        target="_blank"
-        rel="noreferrer"
-        aria-label="View source on GitHub"
-        title="View source on GitHub"
-        className={ICON_LINK}
-      >
-        <GithubIcon className="h-4.5 w-4.5" />
-      </a>
     </div>
   </header>
 );

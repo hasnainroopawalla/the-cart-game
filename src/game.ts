@@ -13,6 +13,9 @@ export type GameSnapshot = {
 };
 
 export class Game {
+  // set to -1 to account for rule evaluation when game starts (onMount).
+  public moveCount: number = -1;
+
   private rules: GameRule[];
 
   constructor() {
@@ -24,6 +27,8 @@ export class Game {
   }
 
   public update(cartItems: CartItems): GameSnapshot {
+    this.moveCount++;
+
     this.rules.forEach((rule) => {
       rule.isSatisfied = rule.definition.evaluate(cartItems);
     });
