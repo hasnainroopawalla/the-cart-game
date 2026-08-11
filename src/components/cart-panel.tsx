@@ -72,23 +72,15 @@ export const CartPanel = ({
   );
 };
 
-const GHOST_ROW_COUNT = 3;
-
-const GhostRow = () => (
-  <li className="flex items-center gap-3 border-b border-neutral-100 px-5 py-3">
-    <span className="h-7 w-7 shrink-0 rounded-full border border-dashed border-neutral-300" />
-    <span className="h-2.5 flex-1 rounded-full bg-neutral-200" />
-    <span className="h-7 w-16 shrink-0 rounded-lg border border-dashed border-neutral-300" />
-    <span className="h-2.5 w-10 shrink-0 rounded-full bg-neutral-200" />
-  </li>
-);
-
 const EmptyCart = () => (
-  <ul aria-hidden="true" className="min-h-0 flex-auto overflow-hidden">
-    {Array.from({ length: GHOST_ROW_COUNT }, (_, index) => (
-      <GhostRow key={index} />
-    ))}
-  </ul>
+  <div className="px-8 py-10 text-center">
+    <p className="text-[14px] font-semibold text-neutral-700">
+      Your cart is empty
+    </p>
+    <p className="mt-1 text-[13px] text-neutral-400">
+      Add items from the catalog to start ticking off rules.
+    </p>
+  </div>
 );
 
 const CartRow = ({

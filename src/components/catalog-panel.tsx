@@ -34,37 +34,37 @@ export const CatalogPanel = ({
       <PanelHeader
         icon={<ShoppingBasket className="h-5 w-5" />}
         title="Catalog"
-        subtitle={
-          isPanelOpen
-            ? `${visibleItems.length} of ${Catalog.items.length} items`
-            : `${Catalog.items.length} items`
-        }
+        subtitle={`${visibleItems.length} of ${Catalog.items.length} items`}
         right={
           <div className="flex items-center gap-2">
-            {isPanelOpen && (
-              <div className="relative w-64">
-                <input
-                  type="search"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search for an item..."
-                  className="focus:border-primary-400 w-full rounded-lg border border-neutral-200 py-1.5 pr-9 pl-3 text-[13.5px] text-neutral-800 outline-none placeholder:text-neutral-400"
-                />
-                <Search className="pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-neutral-400" />
-              </div>
-            )}
-            <CollapseToggle
-              isOpen={isPanelOpen}
-              onToggle={() => setIsPanelOpen((open) => !open)}
-              label="catalog"
-            />
+            <div
+              className={`relative w-64 ${isPanelOpen ? "" : "hidden lg:block"}`}
+            >
+              <input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search for an item..."
+                className="focus:border-primary-400 w-full rounded-lg border border-neutral-200 py-1.5 pr-9 pl-3 text-[13.5px] text-neutral-800 outline-none placeholder:text-neutral-400"
+              />
+              <Search className="pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-neutral-400" />
+            </div>
+            <span className="lg:hidden">
+              <CollapseToggle
+                isOpen={isPanelOpen}
+                onToggle={() => setIsPanelOpen((open) => !open)}
+                label="catalog"
+              />
+            </span>
           </div>
         }
       />
 
-      {isPanelOpen && (
-        <>
-          <div className="flex items-start gap-2 px-5 pt-4">
+      <div
+        className={`flex items-start gap-2 px-5 pt-4 ${
+          isPanelOpen ? "" : "hidden lg:flex"
+        }`}
+      >
             <div className="flex flex-1 flex-wrap items-center gap-2">
               <CategoryChip
                 label="All"
@@ -101,35 +101,37 @@ export const CatalogPanel = ({
             </button>
           </div>
 
-          <div className="mt-3 max-h-100 min-h-0 flex-1 overflow-y-auto px-5 pb-5 [scrollbar-gutter:stable] lg:max-h-none">
-            {visibleItems.length === 0 ? (
-              <div className="flex flex-col items-center justify-center gap-2 px-8 py-10 text-center">
-                <span className="grid h-12 w-12 place-items-center rounded-full bg-neutral-50 text-neutral-300">
-                  <SearchX className="h-6 w-6" />
-                </span>
-                <p className="text-[14px] font-semibold text-neutral-700">
-                  No items found
-                </p>
-                <p className="text-[13px] text-neutral-400">
-                  Try another search term or pick a different category.
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-[repeat(auto-fill,minmax(8.5rem,1fr))] content-start gap-3 p-1">
-                {visibleItems.map((item) => (
-                  <CatalogCard
-                    key={item.id}
-                    item={item}
-                    onQuantityChange={addItemToCart}
-                    quantityInCart={getQuantityByItemId(item.id)}
-                    showAttributes={showAttributes}
-                  />
-                ))}
-              </div>
-            )}
+      <div
+        className={`mt-3 max-h-100 min-h-0 flex-1 overflow-y-auto px-5 pb-5 [scrollbar-gutter:stable] lg:max-h-none ${
+          isPanelOpen ? "" : "hidden lg:block"
+        }`}
+      >
+        {visibleItems.length === 0 ? (
+          <div className="flex flex-col items-center justify-center gap-2 px-8 py-10 text-center">
+            <span className="grid h-12 w-12 place-items-center rounded-full bg-neutral-50 text-neutral-300">
+              <SearchX className="h-6 w-6" />
+            </span>
+            <p className="text-[14px] font-semibold text-neutral-700">
+              No items found
+            </p>
+            <p className="text-[13px] text-neutral-400">
+              Try another search term or pick a different category.
+            </p>
           </div>
-        </>
-      )}
+        ) : (
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(8.5rem,1fr))] content-start gap-3 p-1">
+            {visibleItems.map((item) => (
+              <CatalogCard
+                key={item.id}
+                item={item}
+                onQuantityChange={addItemToCart}
+                quantityInCart={getQuantityByItemId(item.id)}
+                showAttributes={showAttributes}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </Card>
   );
 };

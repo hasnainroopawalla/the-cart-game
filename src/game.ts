@@ -31,6 +31,12 @@ export class Game {
     return this.getSnapshot();
   }
 
+  public isComplete(): boolean {
+    return (
+      this.rules.length > 0 && this.rules.every((entry) => entry.isSatisfied)
+    );
+  }
+
   private generateRules(): GameRule[] {
     const solutionCart = this.generateSolutionCart();
 
