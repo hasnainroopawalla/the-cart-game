@@ -1,16 +1,18 @@
 import { PartyPopper, RotateCcw } from "lucide-react";
 import { formatPrice } from "./card";
+import { formatDuration } from "./use-elapsed-time";
 
 export const GameCompleteOverlay = ({
   itemCount,
   totalSpend,
   moveCount,
+  elapsedSeconds,
   onPlayAgain,
-  //   onDismiss,
 }: {
   itemCount: number;
   totalSpend: number;
   moveCount: number;
+  elapsedSeconds: number;
   onPlayAgain: () => void;
   onDismiss: () => void;
 }) => (
@@ -32,8 +34,9 @@ export const GameCompleteOverlay = ({
         Every rule on your shopping list is ticked.
       </p>
 
-      <dl className="mt-5 grid grid-cols-3 gap-2 rounded-xl bg-neutral-50 p-3">
+      <dl className="mt-5 grid grid-cols-4 gap-2 rounded-xl bg-neutral-50 p-3">
         <Stat label="Moves" value={String(moveCount)} />
+        <Stat label="Time" value={formatDuration(elapsedSeconds)} />
         <Stat label="Items" value={String(itemCount)} />
         <Stat label="Spent" value={formatPrice(totalSpend)} />
       </dl>

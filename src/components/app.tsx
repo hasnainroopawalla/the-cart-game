@@ -8,6 +8,7 @@ import { ShoppingListPanel } from "./shopping-list-panel";
 import { useCartItems } from "./use-cart-items";
 import { useGame } from "./use-game";
 import { CartUtils } from "../data";
+import { useElapsedTime } from "./use-elapsed-time";
 
 export function App() {
   const [isSummaryDismissed, setIsSummaryDismissed] = React.useState(false);
@@ -22,9 +23,12 @@ export function App() {
 
   const { rules, isGameComplete, startNewGame, moveCount } = useGame(cartItems);
 
+  const { getElapsedSeconds, restart: restartElapsedTime } = useElapsedTime();
+
   const onPlayAgain = React.useCallback(() => {
     startNewGame();
     clearCart();
+    restartElapsedTime();
     setIsSummaryDismissed(false);
   }, [clearCart, startNewGame]);
 
@@ -52,6 +56,7 @@ export function App() {
         <GameCompleteOverlay
           moveCount={moveCount}
           itemCount={CartUtils.getItemCount(cartItems)}
+          elapsedSeconds={getElapsedSeconds()}
           totalSpend={CartUtils.getTotal(cartItems)}
           onPlayAgain={onPlayAgain}
           onDismiss={() => setIsSummaryDismissed(true)}
