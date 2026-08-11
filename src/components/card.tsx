@@ -1,4 +1,5 @@
 import * as React from "react";
+import cn from "classnames";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 export const Card = ({
@@ -9,7 +10,10 @@ export const Card = ({
   children: React.ReactNode;
 }) => (
   <section
-    className={`rounded-2xl border border-neutral-200/80 bg-white shadow-[0_1px_2px_rgba(16,24,40,0.04)] ${className}`}
+    className={cn(
+      "rounded-2xl border border-neutral-200/80 bg-white shadow-[0_1px_2px_rgba(16,24,40,0.04)]",
+      className,
+    )}
   >
     {children}
   </section>
@@ -32,11 +36,10 @@ export const PanelHeader = ({
 
   return (
     <header
-      className={`flex shrink-0 items-center justify-between gap-3 border-b px-5 py-4 ${
-        isAccent
-          ? "bg-primary-200/60 border-primary-200"
-          : "border-neutral-200/70"
-      }`}
+      className={cn(
+        "flex shrink-0 items-center justify-between gap-3 border-b px-5 py-4",
+        isAccent ? "bg-primary-200/60 border-primary-200" : "border-neutral-200/70",
+      )}
     >
       <div className="flex items-center gap-3">
         <span className={isAccent ? "text-primary-700" : "text-neutral-700"}>
@@ -44,17 +47,19 @@ export const PanelHeader = ({
         </span>
         <div>
           <h2
-            className={`text-[17px] leading-tight font-semibold ${
-              isAccent ? "text-primary-800" : "text-neutral-900"
-            }`}
+            className={cn(
+              "text-[17px] leading-tight font-semibold",
+              isAccent ? "text-primary-800" : "text-neutral-900",
+            )}
           >
             {title}
           </h2>
           {subtitle && (
             <p
-              className={`text-[13px] ${
-                isAccent ? "text-primary-700/80" : "text-neutral-500"
-              }`}
+              className={cn(
+                "text-[13px]",
+                isAccent ? "text-primary-700/80" : "text-neutral-500",
+              )}
             >
               {subtitle}
             </p>
@@ -100,7 +105,10 @@ export const IconButton = ({
     type="button"
     aria-label={label}
     title={label}
-    className={`inline-flex items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-500 transition hover:border-neutral-300 hover:text-neutral-800 ${className}`}
+    className={cn(
+      "inline-flex items-center justify-center rounded-lg border border-neutral-200 bg-white text-neutral-500 transition hover:border-neutral-300 hover:text-neutral-800",
+      className,
+    )}
     {...props}
   >
     {children}

@@ -1,3 +1,4 @@
+import cn from "classnames";
 import {
   NUMERIC_ATTRIBUTES,
   NUMERIC_ATTRIBUTE_NAMES,
@@ -18,7 +19,10 @@ const AttributeChip = ({
 }) => (
   <span
     title={title}
-    className={`inline-flex shrink-0 items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] leading-none font-medium ${className}`}
+    className={cn(
+      "inline-flex shrink-0 items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] leading-none font-medium",
+      className,
+    )}
   >
     {Icon && <Icon className="h-3 w-3" />}
     {children}
@@ -34,7 +38,7 @@ export const AttributeSummary = ({
   compact?: boolean;
   className?: string;
 }) => (
-  <div className={`flex-wrap items-center gap-1 ${className}`}>
+  <div className={cn("flex-wrap items-center gap-1", className)}>
     <AttributeChip
       icon={getCategoryIcon(attributes.category)}
       title={`Category: ${attributes.category}`}

@@ -1,4 +1,5 @@
 import * as React from "react";
+import cn from "classnames";
 import {
   NUMERIC_ATTRIBUTES,
   type ItemAttributes,
@@ -112,9 +113,11 @@ export const ItemInfoButton = ({
         type="button"
         popoverTarget={panelId}
         aria-label={`Details for ${name}`}
-        className={`inline-flex shrink-0 items-center justify-center rounded-full transition ${className} ${
-          open ? "text-neutral-800" : "text-neutral-400 hover:text-neutral-700"
-        }`}
+        className={cn(
+          "inline-flex shrink-0 items-center justify-center rounded-full transition",
+          className,
+          open ? "text-neutral-800" : "text-neutral-400 hover:text-neutral-700",
+        )}
       >
         <Info className="h-3.5 w-3.5" />
       </button>
@@ -144,7 +147,10 @@ export const ItemInfoButton = ({
                   {row.label}
                 </dt>
                 <dd
-                  className={`flex items-center gap-1.5 text-[12px] font-medium ${row.className}`}
+                  className={cn(
+                    "flex items-center gap-1.5 text-[12px] font-medium",
+                    row.className,
+                  )}
                 >
                   {ValueIcon && <ValueIcon className="h-3.5 w-3.5 shrink-0" />}
                   {row.render(attributes)}

@@ -1,3 +1,4 @@
+import cn from "classnames";
 import {
   Apple,
   Beef,
@@ -61,11 +62,13 @@ export const VegMark = ({
       title={label}
       aria-label={label}
       role="img"
-      className={`inline-flex shrink-0 items-center justify-center rounded-[3px] border ${className} ${
+      className={cn(
+        "inline-flex shrink-0 items-center justify-center rounded-[3px] border",
+        className,
         isVegetarian
           ? "border-emerald-600 text-emerald-600"
-          : "border-red-600 text-red-600"
-      }`}
+          : "border-red-600 text-red-600",
+      )}
     >
       <span className="h-1.5 w-1.5 rounded-full bg-current" />
     </span>

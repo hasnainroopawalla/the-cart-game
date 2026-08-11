@@ -1,4 +1,5 @@
 import * as React from "react";
+import cn from "classnames";
 import { Card, CollapseToggle, PanelHeader, formatPrice } from "./card";
 import { AttributeSummary } from "./attribute-summary";
 import { VegMark } from "./attribute-style";
@@ -38,7 +39,7 @@ export const CatalogPanel = ({
         right={
           <div className="flex items-center gap-2">
             <div
-              className={`relative w-64 ${isPanelOpen ? "" : "hidden lg:block"}`}
+              className={cn("relative w-64", !isPanelOpen && "hidden lg:block")}
             >
               <input
                 type="search"
@@ -61,50 +62,53 @@ export const CatalogPanel = ({
       />
 
       <div
-        className={`flex items-start gap-2 px-5 pt-4 ${
-          isPanelOpen ? "" : "hidden lg:flex"
-        }`}
+        className={cn(
+          "flex items-start gap-2 px-5 pt-4",
+          !isPanelOpen && "hidden lg:flex",
+        )}
       >
-            <div className="flex flex-1 flex-wrap items-center gap-2">
-              <CategoryChip
-                label="All"
-                active={category === null}
-                onClick={() => setCategory(null)}
-              />
-              {Categories.map((name) => (
-                <CategoryChip
-                  key={name}
-                  label={name}
-                  active={name === category}
-                  onClick={() => setCategory(name)}
-                />
-              ))}
-            </div>
+        <div className="flex flex-1 flex-wrap items-center gap-2">
+          <CategoryChip
+            label="All"
+            active={category === null}
+            onClick={() => setCategory(null)}
+          />
+          {Categories.map((name) => (
+            <CategoryChip
+              key={name}
+              label={name}
+              active={name === category}
+              onClick={() => setCategory(name)}
+            />
+          ))}
+        </div>
 
-            <button
-              type="button"
-              aria-pressed={showAttributes}
-              onClick={() => setShowAttributes((shown) => !shown)}
-              aria-label="Toggle item details"
-              title={
-                showAttributes
-                  ? "Hide item details"
-                  : "Show category, protein and colour on every card"
-              }
-              className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border transition ${
-                showAttributes
-                  ? "border-primary-200 bg-primary-50 text-primary-700"
-                  : "border-neutral-200 bg-white text-neutral-500 hover:border-neutral-300 hover:text-neutral-900"
-              }`}
-            >
-              <Tags className="h-4 w-4" />
-            </button>
-          </div>
+        <button
+          type="button"
+          aria-pressed={showAttributes}
+          onClick={() => setShowAttributes((shown) => !shown)}
+          aria-label="Toggle item details"
+          title={
+            showAttributes
+              ? "Hide item details"
+              : "Show category, protein and colour on every card"
+          }
+          className={cn(
+            "inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border transition",
+            showAttributes
+              ? "border-primary-200 bg-primary-50 text-primary-700"
+              : "border-neutral-200 bg-white text-neutral-500 hover:border-neutral-300 hover:text-neutral-900",
+          )}
+        >
+          <Tags className="h-4 w-4" />
+        </button>
+      </div>
 
       <div
-        className={`mt-3 max-h-100 min-h-0 flex-1 overflow-y-auto px-5 pb-5 [scrollbar-gutter:stable] lg:max-h-none ${
-          isPanelOpen ? "" : "hidden lg:block"
-        }`}
+        className={cn(
+          "mt-3 max-h-100 min-h-0 flex-1 overflow-y-auto px-5 pb-5 [scrollbar-gutter:stable] lg:max-h-none",
+          !isPanelOpen && "hidden lg:block",
+        )}
       >
         {visibleItems.length === 0 ? (
           <div className="flex flex-col items-center justify-center gap-2 px-8 py-10 text-center">
@@ -159,14 +163,17 @@ const CatalogCard = ({
 
   return (
     <article
-      className={`flex flex-col overflow-hidden rounded-xl bg-white shadow-sm transition hover:shadow-md ${
-        showAttributes ? "pb-2.5" : "pb-2"
-      } ${inCart ? "ring-primary-200 ring-2" : ""}`}
+      className={cn(
+        "flex flex-col overflow-hidden rounded-xl bg-white shadow-sm transition hover:shadow-md",
+        showAttributes ? "pb-2.5" : "pb-2",
+        inCart && "ring-primary-200 ring-2",
+      )}
     >
       <div
-        className={`relative grid h-20 place-items-center text-3xl leading-none transition-colors ${
-          inCart ? "bg-primary-50" : "bg-neutral-50"
-        }`}
+        className={cn(
+          "relative grid h-20 place-items-center text-3xl leading-none transition-colors",
+          inCart ? "bg-primary-50" : "bg-neutral-50",
+        )}
       >
         {item.emoji}
 
@@ -211,7 +218,7 @@ const CatalogCard = ({
       </div>
 
       <p
-        className="line-clamp-2 max-h-8 px-2.5 pt-0.5 text-[12.5px] leading-4 font-semibold break-words text-neutral-800"
+        className="line-clamp-2 max-h-9 px-2.5 pt-0.5 text-[13.5px] leading-[18px] font-semibold break-words text-neutral-800"
         title={item.name}
       >
         {item.name}
@@ -240,11 +247,12 @@ const CategoryChip = ({
   <button
     type="button"
     onClick={onClick}
-    className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-3.5 py-1.5 text-[13px] font-medium transition ${
+    className={cn(
+      "inline-flex shrink-0 items-center gap-1 rounded-full border px-3.5 py-1.5 text-[13px] font-medium transition",
       active
         ? "border-primary-200 bg-primary-50 text-primary-700"
-        : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300 hover:text-neutral-900"
-    }`}
+        : "border-neutral-200 bg-white text-neutral-600 hover:border-neutral-300 hover:text-neutral-900",
+    )}
   >
     {label}
   </button>

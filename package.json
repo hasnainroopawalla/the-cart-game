@@ -28,6 +28,7 @@
   "author": "Hasnain Roopawalla",
   "license": "MIT",
   "dependencies": {
+    "classnames": "^2.5.1",
     "lucide-react": "^1.28.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"

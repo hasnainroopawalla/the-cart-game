@@ -1,4 +1,5 @@
 import * as React from "react";
+import cn from "classnames";
 import { Card, PanelHeader } from "./card";
 import { Check, ClipboardList } from "lucide-react";
 
@@ -13,11 +14,12 @@ const StatusBox = ({ isSatisfied }: { isSatisfied: boolean }) => (
   // Keyed so the pop replays whenever the verdict flips.
   <span
     key={String(isSatisfied)}
-    className={`animate-status-pop grid h-5 w-5 shrink-0 place-items-center rounded-md border transition-colors ${
+    className={cn(
+      "animate-status-pop grid h-5 w-5 shrink-0 place-items-center rounded-md border transition-colors",
       isSatisfied
         ? "border-satisfied-500 bg-satisfied-500 text-white"
-        : "border-failed-500 bg-failed-50 border-dashed"
-    }`}
+        : "border-failed-500 bg-failed-50 border-dashed",
+    )}
   >
     {isSatisfied && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
   </span>
@@ -40,7 +42,10 @@ export const ShoppingListPanel = ({
 
   return (
     <Card
-      className={`flex max-h-full min-h-0 flex-col self-start overflow-hidden ${className}`}
+      className={cn(
+        "flex max-h-full min-h-0 flex-col self-start overflow-hidden",
+        className,
+      )}
     >
       <PanelHeader
         tone="accent"
@@ -83,11 +88,12 @@ const ShoppingListRow = ({
   >
     <StatusBox isSatisfied={entry.isSatisfied} />
     <p
-      className={`min-w-0 flex-1 text-[14px] first-letter:uppercase transition-colors duration-300 ${
+      className={cn(
+        "min-w-0 flex-1 text-[14px] first-letter:uppercase transition-colors duration-300",
         entry.isSatisfied
-          ? "text-neutral-400 line-through decoration-satisfied-400 decoration-1"
-          : "text-failed-500"
-      }`}
+          ? "decoration-satisfied-400 text-neutral-400 line-through decoration-1"
+          : "text-failed-500",
+      )}
     >
       {entry.label}
     </p>

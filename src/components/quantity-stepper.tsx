@@ -1,3 +1,4 @@
+import cn from "classnames";
 import { Minus, Plus } from "lucide-react";
 
 const TONES = {
@@ -30,18 +31,28 @@ export const QuantityStepper = ({
 
   return (
     <div
-      className={`flex shrink-0 items-center rounded-lg ${styles.wrapper} ${className}`}
+      className={cn(
+        "flex shrink-0 items-center rounded-lg",
+        styles.wrapper,
+        className,
+      )}
     >
       <button
         type="button"
         aria-label="Decrease quantity"
         onClick={onDecrement}
-        className={`inline-flex h-6 w-6 items-center justify-center transition ${styles.button}`}
+        className={cn(
+          "inline-flex h-6 w-6 items-center justify-center transition",
+          styles.button,
+        )}
       >
         <Minus className="h-3 w-3" />
       </button>
       <span
-        className={`w-5 text-center text-[13px] font-medium tabular-nums ${styles.count}`}
+        className={cn(
+          "w-5 text-center text-[13px] font-medium tabular-nums",
+          styles.count,
+        )}
       >
         {quantity}
       </span>
@@ -49,7 +60,10 @@ export const QuantityStepper = ({
         type="button"
         aria-label="Increase quantity"
         onClick={onIncrement}
-        className={`inline-flex h-6 w-6 items-center justify-center transition ${styles.button}`}
+        className={cn(
+          "inline-flex h-6 w-6 items-center justify-center transition",
+          styles.button,
+        )}
       >
         <Plus className="h-3 w-3" />
       </button>
