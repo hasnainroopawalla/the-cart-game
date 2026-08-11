@@ -51,22 +51,40 @@ export const CartPanel = ({
         }
       />
 
-      <ul className="min-h-0 flex-auto overflow-y-auto">
-        {Array.from(cartItems.entries()).map(([itemId, quantity]) => {
-          const item = CartUtils.getCatalogItem(itemId);
-          return (
-            <CartRow
-              key={item.id}
-              item={{ ...item, quantity }}
-              onQuantityChange={addItemToCart}
-              onRemove={removeItemFromCart}
-            />
-          );
-        })}
-      </ul>
+      {cartItems.size === 0 ? (
+        <EmptyCart />
+      ) : (
+        <ul className="min-h-0 flex-auto overflow-y-auto">
+          {Array.from(cartItems.entries()).map(([itemId, quantity]) => {
+            const item = CartUtils.getCatalogItem(itemId);
+            return (
+              <CartRow
+                key={item.id}
+                item={{ ...item, quantity }}
+                onQuantityChange={addItemToCart}
+                onRemove={removeItemFromCart}
+              />
+            );
+          })}
+        </ul>
+      )}
     </Card>
   );
 };
+
+const EmptyCart = () => (
+  <div className="flex min-h-0 flex-auto flex-col items-center justify-center gap-2 px-8 py-10 text-center">
+    <span className="grid h-12 w-12 place-items-center rounded-full bg-neutral-50 text-neutral-300">
+      <ShoppingCart className="h-6 w-6" />
+    </span>
+    <p className="text-[14px] font-semibold text-neutral-700">
+      Your cart is empty
+    </p>
+    <p className="text-[13px] text-neutral-400">
+      Add items from the catalog to start ticking off rules.
+    </p>
+  </div>
+);
 
 const CartRow = ({
   item,

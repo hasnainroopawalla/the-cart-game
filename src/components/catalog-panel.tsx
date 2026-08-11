@@ -4,7 +4,7 @@ import { AttributeSummary } from "./attribute-summary";
 import { VegMark } from "./attribute-style";
 import { ItemInfoButton } from "./item-info-popover";
 import { QuantityStepper } from "./quantity-stepper";
-import { Plus, Search, ShoppingBasket, Tags } from "lucide-react";
+import { Plus, Search, SearchX, ShoppingBasket, Tags } from "lucide-react";
 import { Catalog, CatalogItem, Categories, Category } from "../data";
 
 export const CatalogPanel = ({
@@ -30,7 +30,7 @@ export const CatalogPanel = ({
   }, [query, category]);
 
   return (
-    <Card className="flex shrink-0 flex-col overflow-hidden">
+    <Card className="flex min-h-0 flex-col overflow-hidden">
       <PanelHeader
         icon={<ShoppingBasket className="h-5 w-5" />}
         title="Item Catalog"
@@ -101,13 +101,21 @@ export const CatalogPanel = ({
             </button>
           </div>
 
-          <div className="mt-3 px-5 pb-5">
+          <div className="mt-3 max-h-100 min-h-0 flex-1 overflow-y-auto px-5 pb-5 [scrollbar-gutter:stable] lg:max-h-none">
             {visibleItems.length === 0 ? (
-              <p className="py-6 text-center text-[13px] text-neutral-400">
-                Nothing matches that. Try another search or category.
-              </p>
+              <div className="flex flex-col items-center justify-center gap-2 px-8 py-10 text-center">
+                <span className="grid h-12 w-12 place-items-center rounded-full bg-neutral-50 text-neutral-300">
+                  <SearchX className="h-6 w-6" />
+                </span>
+                <p className="text-[14px] font-semibold text-neutral-700">
+                  No items found
+                </p>
+                <p className="text-[13px] text-neutral-400">
+                  Try another search term or pick a different category.
+                </p>
+              </div>
             ) : (
-              <div className="grid max-h-100 grid-cols-[repeat(auto-fill,minmax(8.5rem,1fr))] content-start gap-3 overflow-y-auto p-1">
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(8.5rem,1fr))] content-start gap-3 p-1">
                 {visibleItems.map((item) => (
                   <CatalogCard
                     key={item.id}

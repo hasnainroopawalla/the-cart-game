@@ -20,25 +20,51 @@ export const PanelHeader = ({
   title,
   subtitle,
   right,
+  tone = "default",
 }: {
   icon: React.ReactNode;
   title: string;
   subtitle?: string;
   right?: React.ReactNode;
-}) => (
-  <header className="flex shrink-0 items-center justify-between gap-3 border-b border-neutral-200/70 px-5 py-4">
-    <div className="flex items-center gap-3">
-      <span className="text-neutral-700">{icon}</span>
-      <div>
-        <h2 className="text-[17px] leading-tight font-semibold text-neutral-900">
-          {title}
-        </h2>
-        {subtitle && <p className="text-[13px] text-neutral-500">{subtitle}</p>}
+  tone?: "default" | "accent";
+}) => {
+  const isAccent = tone === "accent";
+
+  return (
+    <header
+      className={`flex shrink-0 items-center justify-between gap-3 border-b px-5 py-4 ${
+        isAccent
+          ? "bg-primary-200/60 border-primary-200"
+          : "border-neutral-200/70"
+      }`}
+    >
+      <div className="flex items-center gap-3">
+        <span className={isAccent ? "text-primary-700" : "text-neutral-700"}>
+          {icon}
+        </span>
+        <div>
+          <h2
+            className={`text-[17px] leading-tight font-semibold ${
+              isAccent ? "text-primary-800" : "text-neutral-900"
+            }`}
+          >
+            {title}
+          </h2>
+          {subtitle && (
+            <p
+              className={`text-[13px] ${
+                isAccent ? "text-primary-700/80" : "text-neutral-500"
+              }`}
+            >
+              {subtitle}
+            </p>
+          )}
+        </div>
       </div>
-    </div>
-    {right}
-  </header>
-);
+      {right}
+    </header>
+  );
+};
 
 export const CollapseToggle = ({
   isOpen,

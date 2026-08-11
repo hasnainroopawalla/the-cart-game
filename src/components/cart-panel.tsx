@@ -28,7 +28,7 @@ export const CartPanel = ({
   );
 
   return (
-    <Card className="@container flex min-h-0 flex-col overflow-hidden">
+    <Card className="@container flex max-h-full min-h-0 flex-col self-start overflow-hidden">
       <PanelHeader
         icon={<ShoppingCart className="h-5 w-5" />}
         title="Your Cart"
@@ -51,22 +51,45 @@ export const CartPanel = ({
         }
       />
 
-      <ul className="min-h-0 flex-auto overflow-y-auto">
-        {Array.from(cartItems.entries()).map(([itemId, quantity]) => {
-          const item = CartUtils.getCatalogItem(itemId);
-          return (
-            <CartRow
-              key={item.id}
-              item={{ ...item, quantity }}
-              onQuantityChange={addItemToCart}
-              onRemove={removeItemFromCart}
-            />
-          );
-        })}
-      </ul>
+      {cartItems.size === 0 ? (
+        <EmptyCart />
+      ) : (
+        <ul className="min-h-0 flex-auto overflow-y-auto">
+          {Array.from(cartItems.entries()).map(([itemId, quantity]) => {
+            const item = CartUtils.getCatalogItem(itemId);
+            return (
+              <CartRow
+                key={item.id}
+                item={{ ...item, quantity }}
+                onQuantityChange={addItemToCart}
+                onRemove={removeItemFromCart}
+              />
+            );
+          })}
+        </ul>
+      )}
     </Card>
   );
 };
+
+const GHOST_ROW_COUNT = 3;
+
+const GhostRow = () => (
+  <li className="flex items-center gap-3 border-b border-neutral-100 px-5 py-3">
+    <span className="h-7 w-7 shrink-0 rounded-full border border-dashed border-neutral-300" />
+    <span className="h-2.5 flex-1 rounded-full bg-neutral-200" />
+    <span className="h-7 w-16 shrink-0 rounded-lg border border-dashed border-neutral-300" />
+    <span className="h-2.5 w-10 shrink-0 rounded-full bg-neutral-200" />
+  </li>
+);
+
+const EmptyCart = () => (
+  <ul aria-hidden="true" className="min-h-0 flex-auto overflow-hidden">
+    {Array.from({ length: GHOST_ROW_COUNT }, (_, index) => (
+      <GhostRow key={index} />
+    ))}
+  </ul>
+);
 
 const CartRow = ({
   item,
