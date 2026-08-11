@@ -24,17 +24,27 @@ describe("CartUtils.getTotal", () => {
     const lentils = CartUtils.getCatalogItem("lentils");
     const milk = CartUtils.getCatalogItem("milk");
 
-    expect(CartUtils.getTotal(cartOf([["lentils", 2], ["milk", 1]]))).toBe(
-      lentils.price * 2 + milk.price,
-    );
+    expect(
+      CartUtils.getTotal(
+        cartOf([
+          ["lentils", 2],
+          ["milk", 1],
+        ]),
+      ),
+    ).toBe(lentils.price * 2 + milk.price);
   });
 });
 
 describe("CartUtils.getItemCount", () => {
   it("counts units rather than distinct items", () => {
-    expect(CartUtils.getItemCount(cartOf([["lentils", 3], ["milk", 2]]))).toBe(
-      5,
-    );
+    expect(
+      CartUtils.getItemCount(
+        cartOf([
+          ["lentils", 3],
+          ["milk", 2],
+        ]),
+      ),
+    ).toBe(5);
   });
 
   it("is zero for an empty cart", () => {
@@ -47,7 +57,10 @@ describe("CartUtils.countByCategory", () => {
     // Lentils are Grains, milk is Dairy.
     expect(
       CartUtils.countByCategory(
-        cartOf([["lentils", 2], ["milk", 4]]),
+        cartOf([
+          ["lentils", 2],
+          ["milk", 4],
+        ]),
         "Grains",
       ),
     ).toBe(2);

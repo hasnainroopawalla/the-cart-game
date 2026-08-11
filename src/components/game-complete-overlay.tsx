@@ -6,7 +6,7 @@ export const GameCompleteOverlay = ({
   totalSpend,
   moveCount,
   onPlayAgain,
-  onDismiss,
+  //   onDismiss,
 }: {
   itemCount: number;
   totalSpend: number;
@@ -47,13 +47,13 @@ export const GameCompleteOverlay = ({
           <RotateCcw className="h-4 w-4" />
           Play again
         </button>
-        <button
+        {/* <button
           type="button"
           onClick={onDismiss}
           className="rounded-xl px-4 py-2 text-[13px] font-medium text-neutral-500 transition hover:text-neutral-900"
         >
           Review my cart
-        </button>
+        </button> */}
       </div>
     </div>
   </div>

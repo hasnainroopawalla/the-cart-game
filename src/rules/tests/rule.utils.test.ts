@@ -14,9 +14,9 @@ const mixedCart = cartOf([
 
 describe("RuleUtils.countMatchingItems", () => {
   it("counts distinct items rather than units", () => {
-    expect(
-      RuleUtils.countMatchingItems(mixedCart, () => true),
-    ).toBe(mixedCart.size);
+    expect(RuleUtils.countMatchingItems(mixedCart, () => true)).toBe(
+      mixedCart.size,
+    );
   });
 
   it("applies the predicate", () => {
