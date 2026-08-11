@@ -2,7 +2,7 @@ import { CartPanel } from "./cart-panel";
 import { CatalogPanel } from "./catalog-panel";
 import { Footer } from "./footer";
 import { Header } from "./header";
-import { RulesPanel } from "./rules-panel";
+import { ShoppingListPanel } from "./shopping-list-panel";
 import { useCartItems } from "./use-cart-items";
 import { useGame } from "./use-game";
 
@@ -23,7 +23,7 @@ export function App() {
       <div className="mx-auto flex max-w-400 flex-col px-6 py-6 lg:h-full">
         <Header startNewGame={() => {}} />
         <main className="mt-5 grid min-h-0 flex-1 grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1.2fr)_minmax(0,1fr)]">
-          <RulesPanel rules={rules} className="lg:order-last" />
+          <ShoppingListPanel entries={rules} className="lg:order-last" />
           <CatalogPanel
             addItemToCart={addItemToCart}
             getQuantityByItemId={getQuantityByItemId}

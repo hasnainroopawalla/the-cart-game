@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Card, CollapseToggle, PanelHeader } from "./card";
+import { Card, PanelHeader } from "./card";
 import { Check, ClipboardList } from "lucide-react";
 
-export type RulePanelEntry = {
+export type ShoppingListEntry = {
   label: string;
   isSatisfied: boolean;
   current?: string;
@@ -26,16 +26,16 @@ const StatusBox = ({ isSatisfied }: { isSatisfied: boolean }) => (
 const getStatusTextClass = (isSatisfied: boolean) =>
   isSatisfied ? "text-satisfied-600" : "text-failed-500";
 
-export const RulesPanel = ({
-  rules,
+export const ShoppingListPanel = ({
+  entries,
   className = "",
 }: {
-  rules: RulePanelEntry[];
+  entries: ShoppingListEntry[];
   className?: string;
 }) => {
   const [satisfiedCount, totalCount] = [
-    rules.filter((rule) => rule.isSatisfied).length,
-    rules.length,
+    entries.filter((entry) => entry.isSatisfied).length,
+    entries.length,
   ];
 
   return (
@@ -60,8 +60,8 @@ export const RulesPanel = ({
       />
 
       <ul className="min-h-0 flex-auto overflow-y-auto">
-        {rules.map((rule, index) => (
-          <RuleRow key={rule.label} rule={rule} index={index} />
+        {entries.map((entry, index) => (
+          <ShoppingListRow key={entry.label} entry={entry} index={index} />
         ))}
       </ul>
     </Card>
@@ -70,28 +70,34 @@ export const RulesPanel = ({
 
 const ROW_STAGGER_MS = 300;
 
-const RuleRow = ({ rule, index }: { rule: RulePanelEntry; index: number }) => (
+const ShoppingListRow = ({
+  entry,
+  index,
+}: {
+  entry: ShoppingListEntry;
+  index: number;
+}) => (
   <li
     className="animate-rule-in flex items-center gap-3 border-b border-dashed border-neutral-200 px-5 py-3 last:border-b-0"
     style={{ animationDelay: `${index * ROW_STAGGER_MS}ms` }}
   >
-    <StatusBox isSatisfied={rule.isSatisfied} />
+    <StatusBox isSatisfied={entry.isSatisfied} />
     <p
       className={`min-w-0 flex-1 text-[14px] first-letter:uppercase transition-colors duration-300 ${
-        rule.isSatisfied
+        entry.isSatisfied
           ? "text-neutral-400 line-through decoration-satisfied-400 decoration-1"
           : "text-failed-500"
       }`}
     >
-      {rule.label}
+      {entry.label}
     </p>
-    <RuleProgress rule={rule} />
+    <EntryProgress entry={entry} />
   </li>
 );
 
-const RuleProgress = ({ rule }: { rule: RulePanelEntry }) => {
-  const hasCurrent = rule.current !== undefined;
-  const hasTarget = rule.target !== undefined;
+const EntryProgress = ({ entry }: { entry: ShoppingListEntry }) => {
+  const hasCurrent = entry.current !== undefined;
+  const hasTarget = entry.target !== undefined;
 
   if (!hasCurrent && !hasTarget) {
     return null;
@@ -100,15 +106,15 @@ const RuleProgress = ({ rule }: { rule: RulePanelEntry }) => {
   return (
     <p className="shrink-0 text-[13px] font-semibold tabular-nums">
       {hasCurrent && (
-        <span className={getStatusTextClass(rule.isSatisfied)}>
-          {rule.current}
+        <span className={getStatusTextClass(entry.isSatisfied)}>
+          {entry.current}
         </span>
       )}
       {hasCurrent && hasTarget && (
         <span className="font-normal text-neutral-400"> / </span>
       )}
       {hasTarget && (
-        <span className="font-normal text-neutral-400">{rule.target}</span>
+        <span className="font-normal text-neutral-400">{entry.target}</span>
       )}
     </p>
   );
